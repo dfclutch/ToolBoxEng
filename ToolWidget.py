@@ -10,6 +10,7 @@ class ToolWidget(ABC):
 
     """
 
+    @staticmethod
     @abstractmethod
     def calc(*args):
         """"" The calculate method which executes the calculation done by the tool.
@@ -19,7 +20,7 @@ class ToolWidget(ABC):
         to calculate the final result. Each implementation will specify in what order the arguments are to be entered
         (e.g Calculating the area of a rectangular prism: length in arg[0], width in arg[1], and height in arg[2]).
         As a rule, every implementation is guaranteed to work correctly if len(args) == [the number of args specified
-        by the implementation].
+        by the implementation] and the args are in correct order.
 
         To reiterate, each implementation of a ToolWidget must clearly state the number and type of arguments to
         facilitate a clear contract between the client and implementation so that the return value of the implementation
