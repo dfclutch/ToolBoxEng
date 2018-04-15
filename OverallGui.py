@@ -10,13 +10,26 @@ class MainGUI(QMainWindow):
     def __init__(self):
         super().__init__()
         self.create_main_menu_layout()
-
         self.stacked_layout = QStackedLayout()
         self.stacked_layout.addWidget(self.main_menu_widget)
-
+        self.stacked_layout.setCurrentIndex(0)
         self.central_widget = QWidget()
         self.central_widget.setLayout(self.stacked_layout)
         self.setCentralWidget(self.central_widget)
+        self.addPages
+        self.setWindowIcon(QIcon('CornerIcon.png'))
+
+    def addPages(self):
+        self.create_math_menu()
+        self.stacked_layout.addWidget(self.math_menu)
+        self.create_phys_menu()
+        self.stacked_layout.addWidget(self.phys_menu)
+        self.create_chem_menu()
+        self.stacked_layout.addWidget(self.chem_menu)
+        self.create_fav_menu()
+        self.stacked_layout.addWidget(self.fav_menu)
+        self.create_add_widget()
+        self.stacked_layout.addWidget(self.add_widget)
 
     def create_main_menu_layout(self):
         """Creates main menu"""
@@ -43,16 +56,19 @@ class MainGUI(QMainWindow):
 
     def create_math_menu(self):
         """Math Submenu"""
+        self.math_menu_stack_position = 1
         # create widget object to add to stack
         self.math_menu = QWidget()
 
-        # build buttons to widgets
+        # build buttons and
+        label = QLabel('Math Menu')
         self.add_widget_btn = QPushButton('Add', self)
         back_btn = QPushButton('Back', self)
-        back_btn.clicked.connect(self.backButton(self.math_menu))
+        back_btn.clicked.connect(self.backButton)
         # create layout
         self.math_menu_layout = QVBoxLayout()
         # add buttons
+        self.math_menu_layout.addWidget(label)
         self.math_menu_layout.addWidget(self.add_widget_btn)
         self.math_menu_layout.addWidget(back_btn)
         self.add_widget_btn.clicked.connect(self.MathMenuButtonClickHandler)
@@ -62,11 +78,14 @@ class MainGUI(QMainWindow):
 
     def create_phys_menu(self):
         """phys Submenu"""
+        self.phys_menu_stack_position = 2
         # buttons for physics subwidgets
         back_btn = QPushButton('Back', self)
         back_btn.clicked.connect(self.backButton)
+        label = QLabel('Physics')
 
         self.phys_menu_layout = QVBoxLayout()
+        self.phys_menu_layout.addWidget(label)
         self.phys_menu_layout.addWidget(back_btn)
 
         self.phys_menu = QWidget()
@@ -75,6 +94,7 @@ class MainGUI(QMainWindow):
 
     def create_chem_menu(self):
         """phys Submenu"""
+        self.chem_menu_stack_position = 3
         # buttons for physics subwidgets
         back_btn = QPushButton('Back', self)
         back_btn.clicked.connect(self.backButton)
@@ -88,6 +108,7 @@ class MainGUI(QMainWindow):
 
     def create_fav_menu(self):
         """phys Submenu"""
+        self.fav_menu_stack_position = 4
         # buttons for physics subwidgets
         back_btn = QPushButton('Back', self)
         back_btn.clicked.connect(self.backButton)
@@ -101,6 +122,7 @@ class MainGUI(QMainWindow):
 
     def create_add_widget(self):
         """Widget for adding numbers"""
+        self.add_widget_stack_position = 5
         # build stack widget
         self.add_widget = QWidget()
         # create inputs and outputs
@@ -131,7 +153,7 @@ class MainGUI(QMainWindow):
         grid.addWidget(self.output, 4, 1)
 
         back_btn = QPushButton('Back', self)
-        back_btn.clicked.connect(self.backButton(self.add_widget))
+        back_btn.clicked.connect(self.backButton)
         grid.addWidget(back_btn, 5, 0)
 
 
@@ -153,36 +175,26 @@ class MainGUI(QMainWindow):
     def MathMenuButtonClickHandler(self):
         """Handles math submenu button clicks"""
         if self.sender() == self.add_widget_btn:
-            self.create_add_widget()
-            self.stacked_layout.addWidget(self.add_widget)
-            self.stacked_layout.setCurrentIndex(self.stacked_layout.currentIndex() + 1)
+            self.stacked_layout.setCurrentIndex(self.add_widget_stack_position)
 
     def MainMenuButtonClickHandler(self):
         """Handles main menu button clicks, directs user to selected submenu"""
         if self.sender() == self.math_btn:
-            self.create_math_menu()
-            self.stacked_layout.addWidget(self.math_menu)
-            self.stacked_layout.setCurrentIndex(self.stacked_layout.currentIndex() + 1)
+            self.stacked_layout.setCurrentIndex(self.math_menu_stack_position)
 
         elif self.sender() == self.phys_btn:
-            self.create_phys_menu()
-            self.stacked_layout.addWidget(self.phys_menu)
-            self.stacked_layout.setCurrentIndex(self.stacked_layout.currentIndex() + 1)
+            self.stacked_layout.setCurrentIndex(self.phys_menu_stack_position)
 
         elif self.sender() == self.chem_btn:
-            self.create_chem_menu()
-            self.stacked_layout.addWidget(self.chem_menu)
-            self.stacked_layout.setCurrentIndex(self.stacked_layout.currentIndex() + 1)
+            self.stacked_layout.setCurrentIndex(self.chem_menu_stack_position)
 
         elif self.sender() == self.fav_btn:
-            self.create_fav_menu()
-            self.stacked_layout.addWidget(self.fav_menu)
-            self.stacked_layout.setCurrentIndex(self.stacked_layout.currentIndex() + 1)
+            self.stacked_layout.setCurrentIndex(self.fav_menu_stack_position)
 
-    def backButton(self, widget):
+    def backButton(self):
         """Goes back in the layout stack"""
-        self.stacked_layout.removeWidget(widget)
         self.stacked_layout.setCurrentIndex(self.stacked_layout.currentIndex() - 1)
+
 
 
 if __name__ == '__main__':
