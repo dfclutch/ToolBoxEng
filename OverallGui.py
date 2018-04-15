@@ -9,15 +9,19 @@ class MainGUI(QMainWindow):
 
     def __init__(self):
         super().__init__()
-        self.create_main_menu_layout()
+
         self.stacked_layout = QStackedLayout()
+
+        self.create_main_menu_layout()
         self.stacked_layout.addWidget(self.main_menu_widget)
-        self.stacked_layout.setCurrentIndex(0)
+
         self.central_widget = QWidget()
         self.central_widget.setLayout(self.stacked_layout)
         self.setCentralWidget(self.central_widget)
-        self.addPages
+
         self.setWindowIcon(QIcon('CornerIcon.png'))
+
+        self.addPages()
 
     def addPages(self):
         self.create_math_menu()
@@ -30,6 +34,9 @@ class MainGUI(QMainWindow):
         self.stacked_layout.addWidget(self.fav_menu)
         self.create_add_widget()
         self.stacked_layout.addWidget(self.add_widget)
+
+
+        self.stacked_layout.setCurrentIndex(0)
 
     def create_main_menu_layout(self):
         """Creates main menu"""
@@ -57,22 +64,24 @@ class MainGUI(QMainWindow):
     def create_math_menu(self):
         """Math Submenu"""
         self.math_menu_stack_position = 1
-        # create widget object to add to stack
-        self.math_menu = QWidget()
 
         # build buttons and
         label = QLabel('Math Menu')
         self.add_widget_btn = QPushButton('Add', self)
+        self.add_widget_btn.clicked.connect(self.MathMenuButtonClickHandler)
         back_btn = QPushButton('Back', self)
-        back_btn.clicked.connect(self.backButton)
+        back_btn.clicked.connect(lambda: self.backButton(self.main_menu_stack_position))
+
         # create layout
         self.math_menu_layout = QVBoxLayout()
-        # add buttons
         self.math_menu_layout.addWidget(label)
         self.math_menu_layout.addWidget(self.add_widget_btn)
         self.math_menu_layout.addWidget(back_btn)
-        self.add_widget_btn.clicked.connect(self.MathMenuButtonClickHandler)
 
+
+        # create stack object
+
+        self.math_menu = QWidget()
         self.math_menu.setLayout(self.math_menu_layout)
         self.show()
 
@@ -81,13 +90,15 @@ class MainGUI(QMainWindow):
         self.phys_menu_stack_position = 2
         # buttons for physics subwidgets
         back_btn = QPushButton('Back', self)
-        back_btn.clicked.connect(self.backButton)
+        back_btn.clicked.connect(lambda: self.backButton(self.main_menu_stack_position))
         label = QLabel('Physics')
 
+        # create layout
         self.phys_menu_layout = QVBoxLayout()
         self.phys_menu_layout.addWidget(label)
         self.phys_menu_layout.addWidget(back_btn)
 
+        # create stack object
         self.phys_menu = QWidget()
         self.phys_menu.setLayout(self.phys_menu_layout)
         self.show()
@@ -97,11 +108,15 @@ class MainGUI(QMainWindow):
         self.chem_menu_stack_position = 3
         # buttons for physics subwidgets
         back_btn = QPushButton('Back', self)
-        back_btn.clicked.connect(self.backButton)
+        back_btn.clicked.connect(lambda: self.backButton(self.main_menu_stack_position))
+        label = QLabel('Chemistry')
 
+        # create layout
         self.chem_menu_layout = QVBoxLayout()
+        self.chem_menu_layout.addWidget(label)
         self.chem_menu_layout.addWidget(back_btn)
 
+        # create stack object
         self.chem_menu = QWidget()
         self.chem_menu.setLayout(self.chem_menu_layout)
         self.show()
@@ -111,11 +126,15 @@ class MainGUI(QMainWindow):
         self.fav_menu_stack_position = 4
         # buttons for physics subwidgets
         back_btn = QPushButton('Back', self)
-        back_btn.clicked.connect(self.backButton)
+        back_btn.clicked.connect(lambda: self.backButton(self.main_menu_stack_position))
+        label = QLabel('Favorites')
 
+        # create layout
         self.fav_menu_layout = QVBoxLayout()
+        self.fav_menu_layout.addWidget(label)
         self.fav_menu_layout.addWidget(back_btn)
 
+        # create stack object
         self.fav_menu = QWidget()
         self.fav_menu.setLayout(self.fav_menu_layout)
         self.show()
@@ -153,7 +172,7 @@ class MainGUI(QMainWindow):
         grid.addWidget(self.output, 4, 1)
 
         back_btn = QPushButton('Back', self)
-        back_btn.clicked.connect(self.backButton)
+        back_btn.clicked.connect(lambda: self.backButton(self.math_menu_stack_position))
         grid.addWidget(back_btn, 5, 0)
 
 
@@ -191,9 +210,9 @@ class MainGUI(QMainWindow):
         elif self.sender() == self.fav_btn:
             self.stacked_layout.setCurrentIndex(self.fav_menu_stack_position)
 
-    def backButton(self):
+    def backButton(self, index):
         """Goes back in the layout stack"""
-        self.stacked_layout.setCurrentIndex(self.stacked_layout.currentIndex() - 1)
+        self.stacked_layout.setCurrentIndex(index)
 
 
 
