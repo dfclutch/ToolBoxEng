@@ -1,0 +1,6 @@
+self.main_menu_stack_position, 0
+self.math_menu_stack_position, 2
+self.phys_menu_stack_position, 3
+self.chem_menu_stack_position, 4
+self.fav_menu_stack_position, 5
+self.add_widget_stack_position, 6
