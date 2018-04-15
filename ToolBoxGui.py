@@ -2,6 +2,7 @@ import sys
 from PyQt5.QtWidgets import (QWidget, QApplication, QGridLayout, QLineEdit, QPushButton, QMessageBox,
                              QDesktopWidget, QLabel)
 from PyQt5.QtGui import QIcon
+from PyQt5.Qt import  QColor
 
 
 class ToolBox(QWidget):
@@ -41,6 +42,12 @@ class ToolBox(QWidget):
         self.setLayout(grid)
 
         self.resize(800, 600)
+
+        self.setAutoFillBackground(True)
+        p = self.palette()
+        p.setColor(self.backgroundRole(), QColor('#e3f4fc'))
+        self.setPalette(p)
+
         self.center()
         self.setWindowTitle("ToolBox")
         self.setWindowIcon(QIcon('CornerIcon.png'))
