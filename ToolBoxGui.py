@@ -45,7 +45,7 @@ class ToolBox(QWidget):
 
         self.setAutoFillBackground(True)
         p = self.palette()
-        p.setColor(self.backgroundRole(), QColor('#e3f4fc'))
+        p.setColor(self.backgroundRole(), QColor('#e2f4fc'))
         self.setPalette(p)
 
         self.center()
