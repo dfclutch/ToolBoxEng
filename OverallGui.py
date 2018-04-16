@@ -10,7 +10,12 @@ class MainGUI(QMainWindow):
 
     def __init__(self):
         super().__init__()
-
+        self.title = 'Engineering Toolbox'
+        self.left = 100
+        self.top = 100
+        self.width = 180
+        self.height = 320
+        self.initUI()
         self.stacked_layout = QStackedLayout()
 
         self.create_main_menu_layout()
@@ -23,7 +28,26 @@ class MainGUI(QMainWindow):
         self.setWindowIcon(QIcon('CornerIcon.png'))
 
         self.addPages()
-
+    
+    def initUI(self):
+        self.setWindowTitle(self.title)
+        self.setGeometry(self.left, self.top, self.width, self.height)
+ 
+        # Set window background color
+        self.setAutoFillBackground(True)
+        p = self.palette()
+        p.setColor(self.backgroundRole(), Qt.white)
+        self.setPalette(p)
+        self.setStyleSheet("""
+            QPushButton{
+                border: 2px solid #8f8f91;
+                border-radius: 6px;
+                background-color: QLinearGradient( x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #88d, stop: 0.1 #99e, stop: 0.49 #77c, stop: 0.5 #66b, stop: 1 #77c);
+                min-width: 50px;
+                min-height: 50px;
+            }
+                                       """)
+        self.show()
     def addPages(self):
         """Adds pages to stack in order of their stack position"""
         self.create_math_menu()
@@ -201,7 +225,7 @@ class MainGUI(QMainWindow):
         grid.addWidget(input_two, 2, 1)
         grid.addWidget(result, 4, 0)
         grid.addWidget(self.power_output, 4, 1)
-        grid.addWidget(calc_btn, 3, 0)
+        grid.addWidget(calc_btn, 3, 1)
 
         # create back button
         back_btn = QPushButton('Back', self)
