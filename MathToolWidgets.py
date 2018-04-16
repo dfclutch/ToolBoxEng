@@ -41,6 +41,9 @@ class Power(ToolWidget):
 
 
 class CircleArea(ToolWidget):
+    """"" Tool Widget that implements a function that calculates the area of a circle.
+    """
+
     def calc(*args):
         """""
                 Calculates area of a circle
