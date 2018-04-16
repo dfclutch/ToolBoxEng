@@ -11,10 +11,10 @@ class MainGUI(QMainWindow):
     def __init__(self):
         super().__init__()
         self.title = 'Engineering Toolbox'
-        self.left = 100
-        self.top = 100
-        self.width = 180
-        self.height = 320
+        self.left = 200
+        self.top = 200
+        self.width = 500
+        self.height = 640
         self.initUI()
         self.stacked_layout = QStackedLayout()
 
@@ -40,9 +40,9 @@ class MainGUI(QMainWindow):
         self.setPalette(p)
         self.setStyleSheet("""
             QPushButton{
-                border: 2px solid #8f8f91;
-                border-radius: 6px;
-                background-color: QLinearGradient( x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #88d, stop: 0.1 #99e, stop: 0.49 #77c, stop: 0.5 #66b, stop: 1 #77c);
+                border: 1px solid #293744;
+                border-radius: 3px;
+                background-color: #ffb277;
                 min-width: 50px;
                 min-height: 50px;
             }
