@@ -36,7 +36,7 @@ class MainGUI(QMainWindow):
         # Set window background color
         self.setAutoFillBackground(True)
         p = self.palette()
-        p.setColor(self.backgroundRole(), Qt.white)
+        p.setColor(self.backgroundRole(), QColor('white'))
         self.setPalette(p)
         self.setStyleSheet("""
             QPushButton{
