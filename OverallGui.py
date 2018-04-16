@@ -187,12 +187,14 @@ class MainGUI(QMainWindow):
         i_one = input_one.text()
         i_two = input_two.text()
 
-        if i_one.isnumeric() & i_two.isnumeric():
-            in_one = int(i_one)
-            in_two = int(i_two)
+        try:
+            in_one = float(i_one)
+            in_two = float(i_two)
 
             out_sum = MathToolWidgets.Add.calc(in_one, in_two)
             self.add_output.setText(str(out_sum))
+        except ValueError:
+            self.add_output.setText("Please enter a number")
 
 
     def create_power_widget(self):
@@ -240,12 +242,14 @@ class MainGUI(QMainWindow):
         i_one = input_one.text()
         i_two = input_two.text()
 
-        if i_one.isnumeric() & i_two.isnumeric():
-            in_one = int(i_one)
-            in_two = int(i_two)
+        try:
+            in_one = float(i_one)
+            in_two = float(i_two)
 
             out_sum = MathToolWidgets.Power.calc(in_one, in_two)
             self.power_output.setText(str(out_sum))
+        except ValueError:
+            self.power_output.setText("Please enter a number")
 
     """
         PHYSICS MENU, HELPER CLASSES, AND WIDGETS
