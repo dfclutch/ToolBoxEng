@@ -1,4 +1,4 @@
-def create_add_widget(self):
+def create_NAME_widget(self):
     """Widget for ...."""
     self.CHANGE_NAME_widget_stack_position = 0  # set stack position, reference attached doc
 

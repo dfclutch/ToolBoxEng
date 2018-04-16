@@ -3,6 +3,7 @@ from PyQt5.QtWidgets import (QWidget, QApplication, QGridLayout, QLineEdit, QPus
                              QDesktopWidget, QLabel, QMainWindow, QStackedLayout, QVBoxLayout, QHBoxLayout)
 from PyQt5.QtGui import QIcon
 from PyQt5.Qt import  QColor
+import MathToolWidgets
 
 
 class MainGUI(QMainWindow):
@@ -35,6 +36,8 @@ class MainGUI(QMainWindow):
         self.stacked_layout.addWidget(self.fav_menu)
         self.create_add_widget()
         self.stacked_layout.addWidget(self.add_widget)
+        self.create_power_widget()
+        self.stacked_layout.addWidget(self.power_widget)
 
         self.stacked_layout.setCurrentIndex(0)
 
@@ -87,10 +90,12 @@ class MainGUI(QMainWindow):
         """Math Submenu"""
         self.math_menu_stack_position = 1
 
-        # build buttons and
+        # build buttons and labels
         label = QLabel('Math Menu')
         self.add_widget_btn = QPushButton('Add', self)
         self.add_widget_btn.clicked.connect(self.MathMenuButtonClickHandler)
+        self.power_widget_btn = QPushButton('Power', self)
+        self.power_widget_btn.clicked.connect(self.MathMenuButtonClickHandler)
         back_btn = QPushButton('Back', self)
         back_btn.clicked.connect(lambda: self.backButton(self.main_menu_stack_position))
 
@@ -98,6 +103,7 @@ class MainGUI(QMainWindow):
         self.math_menu_layout = QVBoxLayout()
         self.math_menu_layout.addWidget(label)
         self.math_menu_layout.addWidget(self.add_widget_btn)
+        self.math_menu_layout.addWidget(self.power_widget_btn)
         self.math_menu_layout.addWidget(back_btn)
 
 
@@ -107,6 +113,13 @@ class MainGUI(QMainWindow):
         self.math_menu.setLayout(self.math_menu_layout)
         self.show()
 
+
+    def MathMenuButtonClickHandler(self):
+        """Handles math submenu button clicks"""
+        if self.sender() == self.add_widget_btn:
+            self.stacked_layout.setCurrentIndex(self.add_widget_stack_position)
+        elif self.sender() == self.power_widget_btn:
+            self.stacked_layout.setCurrentIndex(self.power_widget_stack_position)
 
     def create_add_widget(self):
         """Widget for adding numbers"""
@@ -119,11 +132,11 @@ class MainGUI(QMainWindow):
         input_one_label = QLabel('Input One')
         input_two_label = QLabel('Input Two')
         output_label = QLabel('Output')
-        self.add_input_one = QLineEdit()
-        self.add_input_two = QLineEdit()
-        self.output = QLineEdit()
+        input_one = QLineEdit()
+        input_two = QLineEdit()
+        self.add_output = QLineEdit()
         calc_btn = QPushButton('Calculate', self)
-        calc_btn.clicked.connect(self.add_widget_calculate)
+        calc_btn.clicked.connect(lambda: self.add_widget_calculate(input_one, input_two))
         back_btn = QPushButton('Back', self)
         back_btn.clicked.connect(lambda: self.backButton(self.math_menu_stack_position))
 
@@ -133,34 +146,82 @@ class MainGUI(QMainWindow):
 
         # add widgets to grid
         grid.addWidget(input_one_label, 1, 0)
-        grid.addWidget(self.add_input_one, 1, 1)
+        grid.addWidget(input_one, 1, 1)
         grid.addWidget(input_two_label, 2, 0)
-        grid.addWidget(self.add_input_two, 2, 1)
+        grid.addWidget(input_two, 2, 1)
         grid.addWidget(calc_btn, 3, 1, 1, 1)
         grid.addWidget(output_label, 4, 0)
-        grid.addWidget(self.output, 4, 1)
+        grid.addWidget(self.add_output, 4, 1)
         grid.addWidget(back_btn, 5, 0)
 
         # create stack object
         self.add_widget.setLayout(grid)
         self.show()
 
-    def add_widget_calculate(self):
+    def add_widget_calculate(self, input_one, input_two):
         """calculates sum for add widget"""
-        i_one = self.add_input_one.text()
-        i_two = self.add_input_two.text()
+        i_one = input_one.text()
+        i_two = input_two.text()
 
         if i_one.isnumeric() & i_two.isnumeric():
             in_one = int(i_one)
             in_two = int(i_two)
 
-            out_sum = in_one + in_two
-            self.output.setText(str(out_sum))
+            out_sum = MathToolWidgets.Add.calc(in_one, in_two)
+            self.add_output.setText(str(out_sum))
 
-    def MathMenuButtonClickHandler(self):
-        """Handles math submenu button clicks"""
-        if self.sender() == self.add_widget_btn:
-            self.stacked_layout.setCurrentIndex(self.add_widget_stack_position)
+
+    def create_power_widget(self):
+        """Widget for ...."""
+        self.power_widget_stack_position = 6  # set stack position, reference attached doc
+
+        # build stack widget
+        self.power_widget = QWidget()
+
+        # create inputs, buttons, and outputs
+        title = QLabel('Power')
+        label_one = QLabel('Base:')
+        label_two = QLabel('Power: ')
+        input_one = QLineEdit()
+        input_two = QLineEdit()
+        self.power_output = QLineEdit()
+        calc_btn = QPushButton('Calculate', self)
+        calc_btn.clicked.connect(lambda: self.power_widget_calculate(input_one, input_two))
+        result = QLabel('Result')
+
+        # setup gridlayout
+        grid = QGridLayout()
+        grid.setSpacing(10)
+
+        # add widgets to grid
+        grid.addWidget(title, 0, 0)
+        grid.addWidget(label_one, 1, 0)
+        grid.addWidget(input_one, 1, 1)
+        grid.addWidget(label_two, 2, 0)
+        grid.addWidget(input_two, 2, 1)
+        grid.addWidget(result, 4, 0)
+        grid.addWidget(self.power_output, 4, 1)
+        grid.addWidget(calc_btn, 3, 0)
+
+        # create back button
+        back_btn = QPushButton('Back', self)
+        back_btn.clicked.connect(lambda: self.backButton(self.math_menu_stack_position))  # update menu to return to
+        grid.addWidget(back_btn, 5, 0)
+
+        # create stack object
+        self.power_widget.setLayout(grid)
+        self.show()
+
+    def power_widget_calculate(self, input_one, input_two):
+        i_one = input_one.text()
+        i_two = input_two.text()
+
+        if i_one.isnumeric() & i_two.isnumeric():
+            in_one = int(i_one)
+            in_two = int(i_two)
+
+            out_sum = MathToolWidgets.Power.calc(in_one, in_two)
+            self.power_output.setText(str(out_sum))
 
     """
         PHYSICS MENU, HELPER CLASSES, AND WIDGETS

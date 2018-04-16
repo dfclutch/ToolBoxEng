@@ -3,6 +3,24 @@ import math
 import MathSciConstants
 
 
+class Add(ToolWidget):
+    """
+        Add class that implements adding two numbers together
+    """
+    def calc(*args):
+        """"
+        Calculates x + y
+        Args:
+            arg[0]: x
+            arg[1]: y
+        Returns:
+            x + y
+        """
+        x = args[0]
+        y = args[1]
+        return x + y
+
+
 class Power(ToolWidget):
     """"" Power class that implements a power function.
     """
