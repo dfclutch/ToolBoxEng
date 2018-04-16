@@ -201,7 +201,7 @@ class MainGUI(QMainWindow):
         grid.addWidget(input_two, 2, 1)
         grid.addWidget(result, 4, 0)
         grid.addWidget(self.power_output, 4, 1)
-        grid.addWidget(calc_btn, 3, 0)
+        grid.addWidget(calc_btn, 3, 1)
 
         # create back button
         back_btn = QPushButton('Back', self)
