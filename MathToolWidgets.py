@@ -1,4 +1,5 @@
 from ToolWidget import ToolWidget
+import scipy.integrate
 import math
 import MathSciConstants
 
@@ -54,3 +55,30 @@ class CircleArea(ToolWidget):
                 """
         radius = args[0]
         return MathSciConstants.pi * math.pow(radius, 2)
+
+
+class Integrate(ToolWidget):
+
+    def calc(*args):
+        """""
+        Calculates the definite integral of a function with respect to x.
+            Args:
+                args[0]: A string with the function in it
+                args[1]: The lower bound of the integral
+                args[2]: The upper bound of the integral
+        """
+
+        functionString = str(args[0])
+
+        def integrand(x):
+            e = MathSciConstants.e
+            pi = MathSciConstants.pi
+            y = eval(functionString, globals(), locals())
+            return y
+
+        lower = args[1]
+        upper = args[2]
+
+        result, err = scipy.integrate.quad(integrand, lower, upper)
+        return result
+

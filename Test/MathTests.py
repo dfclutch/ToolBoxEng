@@ -44,6 +44,29 @@ class TestMathMethods(unittest.TestCase):
         result = MathToolWidgets.CircleArea.calc(radius)
         self.assertAlmostEqual(result, expected)
 
+    def testIntegral(self):
+        func = "x"
+        lower = 1
+        upper = 2
+        expected = 3/2
+        result = MathToolWidgets.Integrate.calc(func,lower,upper)
+        self.assertEqual(expected, result)
+
+    def testIntegralSquare(self):
+        func = "x**2"
+        lower = 1
+        upper = 2
+        expected = 7/3
+        result = MathToolWidgets.Integrate.calc(func,lower,upper)
+        self.assertEqual(expected, result)
+
+    def testIntegralEuler(self):
+        func = "e**x"
+        lower = 0
+        upper = 5
+        expected = (math.e ** 5) - 1
+        result = MathToolWidgets.Integrate.calc(func, lower, upper)
+        self.assertEqual(expected, result)
 
 if __name__ == '__main__':
     unittest.main()
