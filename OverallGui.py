@@ -1,9 +1,11 @@
 import sys
-from PyQt5.QtWidgets import (QWidget, QApplication, QGridLayout, QLineEdit, QPushButton, QMessageBox,
+from PyQt5.QtWidgets import (QWidget, QApplication, QGridLayout, QLineEdit, QPushButton, QMessageBox, QSplashScreen,
                              QDesktopWidget, QLabel, QMainWindow, QStackedLayout, QVBoxLayout, QHBoxLayout)
-from PyQt5.QtGui import QIcon
+from PyQt5.QtGui import *
 from PyQt5.Qt import  QColor
+from PyQt5.QtCore import *
 import MathToolWidgets
+import time
 
 
 class MainGUI(QMainWindow):
@@ -36,14 +38,14 @@ class MainGUI(QMainWindow):
         # Set window background color
         self.setAutoFillBackground(True)
         p = self.palette()
-        p.setColor(self.backgroundRole(), QColor('white'))
+        p.setColor(self.backgroundRole(), QColor('#444039'))
         self.setPalette(p)
         self.setStyleSheet("""
             QPushButton[menuButton = "true"]{
                 border: 1px solid #293744;
                 border-radius: 5px;
                 padding: 10px 20px;
-                background-color: #ffb277;
+                background-color: #ff9400;
                 min-width: 50px;
                 min-height: 100px;
                 font-family: "Helvetica";
@@ -54,7 +56,7 @@ class MainGUI(QMainWindow):
                 border: 1px solid #293744;
                 border-radius: 5px;
                 padding: 5px 20px;
-                background-color: #ffb277;
+                background-color: #ff9400;
                 min-width: 50px;
                 min-height: 80px;
                 font-family: "Helvetica";
@@ -63,7 +65,8 @@ class MainGUI(QMainWindow):
             
             QLabel {   
                 font-family: "Helvetica";
-                font-size: 36px;            
+                font-size: 36px;    
+                color: white;        
             }
             
             QWidget {
@@ -90,6 +93,8 @@ class MainGUI(QMainWindow):
         self.stacked_layout.addWidget(self.add_widget)
         self.create_power_widget()
         self.stacked_layout.addWidget(self.power_widget)
+        self.create_integral_widget()
+        self.stacked_layout.addWidget(self.integral_widget)
 
         self.stacked_layout.setCurrentIndex(0)
 
@@ -154,6 +159,7 @@ class MainGUI(QMainWindow):
         self.widget_btn_power.clicked.connect(self.MathMenuButtonClickHandler)
         self.widget_btn_power.setProperty("menuButton", False)
         self.widget_btn_integral = QPushButton('Integral', self)
+        self.widget_btn_integral.clicked.connect(self.MathMenuButtonClickHandler)
         self.widget_btn_integral.setProperty("menuButton", False)
         self.widget_btn_derivative = QPushButton('Derivative', self)
         self.widget_btn_derivative.setProperty("menuButton", False)
@@ -189,6 +195,8 @@ class MainGUI(QMainWindow):
             self.stacked_layout.setCurrentIndex(self.add_widget_stack_position)
         elif self.sender() == self.widget_btn_power:
             self.stacked_layout.setCurrentIndex(self.power_widget_stack_position)
+        elif self.sender() == self.widget_btn_integral:
+            self.stacked_layout.setCurrentIndex(self.integral_widget_stack_position)
 
     def create_add_widget(self):
         """Widget for adding numbers"""
@@ -298,6 +306,67 @@ class MainGUI(QMainWindow):
         except ValueError:
             self.power_output.setText("Please enter a number")
 
+    def create_integral_widget(self):
+        """Widget for calculating definite integrals"""
+        self.integral_widget_stack_position = 7  # set stack position, reference attached doc
+
+        # build stack widget
+        self.integral_widget = QWidget()
+
+        # create inputs, buttons, and outputs
+        title = QLabel('Definite Integral Calculator')
+        func_label = QLabel('Function: ')
+        upper_label = QLabel('Upper: ')
+        lower_label = QLabel('Lower: ')
+        result_label = QLabel('Result: ')
+        func_input = QLineEdit()
+        upper_input = QLineEdit()
+        lower_input = QLineEdit()
+        self.integral_output = QLineEdit()
+        calc_btn = QPushButton('Calculate')
+        calc_btn.clicked.connect(lambda: self.integral_widget_calculate(func_input, upper_input, lower_input))
+        calc_btn.setProperty("menuButton", False)
+
+        # setup gridlayout
+        grid = QGridLayout()
+
+        # add widgets to grid
+        grid.addWidget(title, 0,0,1,1)
+        grid.addWidget(func_label, 1,0)
+        grid.addWidget(func_input, 1,1)
+        grid.addWidget(upper_label, 2,0)
+        grid.addWidget(upper_input, 2,1)
+        grid.addWidget(lower_label, 3,0)
+        grid.addWidget(lower_input, 3,1)
+        grid.addWidget(calc_btn, 4,1)
+        grid.addWidget(result_label, 5,0)
+        grid.addWidget(self.integral_output, 5,1)
+
+        # create back button
+        back_btn = QPushButton('Back', self)
+        back_btn.clicked.connect(lambda: self.backButton(self.math_menu_stack_position))  # update menu to return to
+        back_btn.setProperty("menuButton", True)
+        grid.addWidget(back_btn, 6,0,1,2)
+
+        # create stack object
+        self.integral_widget.setLayout(grid)
+        self.show()
+
+    def integral_widget_calculate(self, func, upper, lower):
+        f = func.text()
+        u = upper.text()
+        l = lower.text()
+        try:
+            u_float = float(u)
+            l_float = float(l)
+
+            result = MathToolWidgets.Integrate.calc(f, u_float, l_float)
+            self.integral_output.setText(str(result))
+        except ValueError:
+            self.integral_output.setText("Please enter a number")
+
+    # TODO: add new widget pages and add to initialization stack
+
     """
         PHYSICS MENU, HELPER CLASSES, AND WIDGETS
     """
@@ -390,9 +459,21 @@ class MainGUI(QMainWindow):
         """Goes back in the layout stack"""
         self.stacked_layout.setCurrentIndex(index)
 
+    def create_splash_screen(self):
+        """Creates a loading screen"""
+
 
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
+    # splash_pix = QPixmap('splash_screen.png')
+    # splash = QSplashScreen(splash_pix, Qt.WindowStaysOnTopHint)
+    # splash.setMask(splash_pix.mask())
+    # splash.show()
+    # app.processEvents()
+    # time.sleep(2)
+
     m = MainGUI()
+    m.show()
+    # splash.finish(m)
     sys.exit(app.exec_())

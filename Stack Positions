@@ -5,3 +5,4 @@ self.chem_menu_stack_position, 3
 self.fav_menu_stack_position, 4
 self.add_widget_stack_position, 5
 self.power_widget_stack_position, 6
+self.integral_widget_stack_position, 7
