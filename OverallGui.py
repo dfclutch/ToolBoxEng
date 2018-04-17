@@ -368,7 +368,7 @@ class MainGUI(QMainWindow):
             u_float = float(u)
             l_float = float(l)
 
-            result = MathToolWidgets.Integrate.calc(f, u_float, l_float)
+            result = MathToolWidgets.Integrate.calc(f, l_float, u_float)
             self.integral_output.setText(str(result))
         except ValueError:
             self.integral_output.setText("Please enter a number")

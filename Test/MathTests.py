@@ -62,12 +62,12 @@ class TestMathMethods(unittest.TestCase):
         self.assertEqual(expected, result)
 
     def testIntegralEuler(self):
-        func = "e**x"
+        func = "exp(x)"
         lower = 0
         upper = 5
         expected = (math.e ** 5) - 1
         result = MathToolWidgets.Integrate.calc(func, lower, upper)
-        self.assertEqual(expected, result)
+        self.assertAlmostEqual(expected, result)
 
     def testIntegralLargeX(self):
         func = "x"
@@ -99,11 +99,11 @@ class TestMathMethods(unittest.TestCase):
         self.assertEqual(expected, result)
 
     def testDerivativeEuler(self):
-        func = "e**x"
+        func = "exp(x)"
         point = 10
         expected = math.e**10
         result = MathToolWidgets.Derivative.calc(func, point)
-        self.assertEqual(expected, result)
+        self.assertAlmostEqual(expected, result)
 
 
 if __name__ == '__main__':

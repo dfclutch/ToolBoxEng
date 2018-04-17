@@ -1,8 +1,11 @@
 from ToolWidget import ToolWidget
-import scipy.integrate
-import scipy.misc
+import sympy
+import sympy.parsing.sympy_parser
+from sympy.parsing.sympy_parser import standard_transformations, implicit_multiplication_application
 import math
 import MathSciConstants
+
+transformations = standard_transformations + (implicit_multiplication_application,)
 
 
 class Add(ToolWidget):
@@ -69,19 +72,17 @@ class Integrate(ToolWidget):
                 args[2]: The upper bound of the integral
         """
 
+        x = sympy.symbols('x')
+
         functionString = str(args[0])
 
-        def integrand(x):
-            e = MathSciConstants.e
-            pi = MathSciConstants.pi
-            y = eval(functionString, globals(), locals())
-            return y
+        integrand = sympy.parsing.sympy_parser.parse_expr(functionString, transformations=transformations)
 
         lower = args[1]
         upper = args[2]
 
-        result, err = scipy.integrate.quad(integrand, lower, upper)
-        return result
+        res = sympy.integrate(integrand, (x, lower, upper))
+        return float(res)
 
 
 class Derivative(ToolWidget):
@@ -94,14 +95,14 @@ class Derivative(ToolWidget):
                 args[1]: The point at which the derivative should be calculated
         """
 
+        x = sympy.symbols('x')
+
         functionString = str(args[0])
 
-        def derive(x):
-            e = MathSciConstants.e
-            pi = MathSciConstants.pi
-            y = eval(functionString, globals(), locals())
-            return y
+        differential = sympy.parsing.sympy_parser.parse_expr(functionString, transformations=transformations)
 
-        point = args[1]
+        evalPoint = args[1]
 
-        return scipy.misc.derivative(derive, point)
+        res = sympy.diff(differential, x)
+
+        return res.evalf(subs={x: evalPoint})
