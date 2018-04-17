@@ -466,14 +466,19 @@ class MainGUI(QMainWindow):
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    # splash_pix = QPixmap('splash_screen.png')
-    # splash = QSplashScreen(splash_pix, Qt.WindowStaysOnTopHint)
-    # splash.setMask(splash_pix.mask())
-    # splash.show()
-    # app.processEvents()
-    # time.sleep(2)
+    splash_pix = QPixmap('splash_screen.png')
+    splash = QSplashScreen(splash_pix, Qt.WindowStaysOnTopHint)
+    splash.setMask(splash_pix.mask())
+    left = 100
+    top = 100
+    width = 900
+    height = 750
+    splash.setGeometry(left, top, width, height)
+    splash.show()
+    app.processEvents()
+    time.sleep(2)
 
     m = MainGUI()
     m.show()
-    # splash.finish(m)
+    splash.finish(m)
     sys.exit(app.exec_())
