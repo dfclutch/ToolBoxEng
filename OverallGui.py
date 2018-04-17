@@ -622,23 +622,28 @@ class MainGUI(QMainWindow):
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    splash_pix = QPixmap('splash_screen.png')
-    splash = QSplashScreen(splash_pix, Qt.WindowStaysOnTopHint)
-    splash.setMask(splash_pix.mask())
-    screen_width = QDesktopWidget().availableGeometry().width()
-    if screen_width < 3000:
-        left = 100 /2
-        top = 100 /2
-        width = 900 /2
-        height = 750 /2
 
-    else:
-        left = 100
-        top = 100
-        width = 900
-        height = 750
+    screen_width = QDesktopWidget().availableGeometry().width()
+    left = 100
+    top = 100
+    width = 900
+    height = 750
+
+    if screen_width < 3000:
+        left /= 2
+        top /= 2
+        width /= 2
+        height /= 2
+
+    splash_pix = QPixmap('splash_screen.png')
+    scaled = splash_pix.scaled(width, height, Qt.IgnoreAspectRatio, Qt.FastTransformation)
+    splash = QSplashScreen(scaled, Qt.WindowStaysOnTopHint)
+    splash.setMask(scaled.mask())
+
+
 
     splash.setGeometry(left, top, width, height)
+
     splash.show()
     app.processEvents()
     m = MainGUI()
