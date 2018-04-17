@@ -15,10 +15,12 @@ class MainGUI(QMainWindow):
         self.title = 'Engineering Toolbox'
         screen_width = QDesktopWidget().availableGeometry().width()
         screen_height = QDesktopWidget().availableGeometry().height()
-        self.left = 100 * 3840 / screen_width
-        self.top = 100 * 2060 / screen_height
-        self.width = 900 * 3840 / screen_width
-        self.height = 750 * 2060 / screen_height
+        self.left = int(100 * screen_width / 3840)
+        self.top = int(100 * screen_height / 2060)
+        self.width = int(900 * screen_width / 3840)
+        self.height = int(750 * screen_height / 2060)
+
+
         self.initUI()
         self.stacked_layout = QStackedLayout()
 
@@ -489,10 +491,10 @@ if __name__ == '__main__':
     splash.setMask(splash_pix.mask())
     screen_width = QDesktopWidget().availableGeometry().width()
     screen_height = QDesktopWidget().availableGeometry().height()
-    left = 100 * 3840 / screen_width
-    top = 100 * 2060 / screen_height
-    width = 900 * 3840 / screen_width
-    height = 750 * 2060 / screen_height
+    left = int(100 * screen_width / 3840)
+    top = int(100 * screen_height / 2060)
+    width = int(900 * screen_width / 3840)
+    height = int(750 * screen_height / 2060)
 
     splash.setGeometry(left, top, width, height)
     splash.show()
