@@ -86,6 +86,8 @@ class Integrate(ToolWidget):
             return float(res)
         except:
             return "Improperly Formatted Function"
+
+
 class Derivative(ToolWidget):
 
     def calc(*args):
@@ -95,15 +97,18 @@ class Derivative(ToolWidget):
                 args[0]: A string with the function in it
                 args[1]: The point at which the derivative should be calculated
         """
+        try:
+            x = sympy.symbols('x')
 
-        x = sympy.symbols('x')
+            functionString = str(args[0])
 
-        functionString = str(args[0])
+            differential = sympy.parsing.sympy_parser.parse_expr(functionString, transformations=transformations)
 
-        differential = sympy.parsing.sympy_parser.parse_expr(functionString, transformations=transformations)
+            evalPoint = args[1]
 
-        evalPoint = args[1]
+            res = sympy.diff(differential, x)
 
-        res = sympy.diff(differential, x)
+            return res.evalf(subs={x: evalPoint})
 
-        return res.evalf(subs={x: evalPoint})
+        except:
+            return "Improperly Formatted Function"
