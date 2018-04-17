@@ -1,6 +1,5 @@
 import sys
-from PyQt5.QtWidgets import (QWidget, QApplication, QGridLayout, QLineEdit, QPushButton, QMessageBox, QSplashScreen,
-                             QDesktopWidget, QLabel, QMainWindow, QStackedLayout, QVBoxLayout, QHBoxLayout)
+from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.Qt import  QColor
 from PyQt5.QtCore import *
@@ -101,6 +100,8 @@ class MainGUI(QMainWindow):
         self.stacked_layout.addWidget(self.power_widget)
         self.create_integral_widget()
         self.stacked_layout.addWidget(self.integral_widget)
+        self.create_resband_widget()
+        self.stacked_layout.addWidget(self.resband_widget)
 
         self.stacked_layout.setCurrentIndex(0)
 
@@ -148,6 +149,7 @@ class MainGUI(QMainWindow):
 
         elif self.sender() == self.menu_fav_btn:
             self.stacked_layout.setCurrentIndex(self.fav_menu_stack_position)
+
     """
         MATH MENU, HELPER CLASSES, AND ASSOCIATED WIDGETS
     """
@@ -268,7 +270,7 @@ class MainGUI(QMainWindow):
             self.add_output.setText("Please enter a number")
 
     def create_power_widget(self):
-        """Widget for ...."""
+        """Widget for raising a base to a power"""
         self.power_widget_stack_position = 6  # set stack position, reference attached doc
 
         # build stack widget
@@ -404,11 +406,15 @@ class MainGUI(QMainWindow):
         back_btn.clicked.connect(lambda: self.backButton(self.main_menu_stack_position))
         back_btn.setProperty("menuButton", True)
         label = QLabel('Physics')
+        self.widget_btn_resband = QPushButton('Resistor Bands')
+        self.widget_btn_resband.setProperty("menuButton", False)
+        self.widget_btn_resband.clicked.connect(self.PhysMenuButtonClickHandler)
 
         # create layout
-        self.phys_menu_layout = QVBoxLayout()
-        self.phys_menu_layout.addWidget(label)
-        self.phys_menu_layout.addWidget(back_btn)
+        self.phys_menu_layout = QGridLayout()
+        self.phys_menu_layout.addWidget(label, 0, 0, 1, 1)
+        self.phys_menu_layout.addWidget(self.widget_btn_resband, 1, 0, 1, 1)
+        self.phys_menu_layout.addWidget(back_btn, 2, 0, 1, 2)
 
         # create stack object
         self.phys_menu = QWidget()
@@ -417,8 +423,75 @@ class MainGUI(QMainWindow):
 
     def PhysMenuButtonClickHandler(self):
         """Handles physics submenu button clicks"""
-        if True: # self.sender() == self.widget_btn:
-            pass
+        if self.sender() == self.widget_btn_resband:
+            self.stacked_layout.setCurrentIndex(self.resband_widget_stack_position)
+
+    def create_resband_widget(self):
+        """Widget for Calculating resistor values"""
+        self.resband_widget_stack_position = 8  # set stack position, reference attached doc
+
+        # build stack widget
+        self.resband_widget = QWidget()
+
+        # create inputs, buttons, and outputs
+        title = QLabel('Resistor Value Calculator')
+        label_one = QLabel('1st Band: ')
+        label_two = QLabel('2nd Band: ')
+        label_mult = QLabel('Multiplier: ')
+        label_tolerance = QLabel('Tolerance: ')
+        label_value = QLabel('Value: ')
+        band_one = QComboBox()
+        band_one.addItems(['Brown 1', 'Red 2', 'Orange 3', 'Yellow 4', 'Green 5', 'Blue 6', 'Violet 7', 'Gray 8', 'White 9'])
+        band_two = QComboBox()
+        band_two.addItems(['Brown 1', 'Red 2', 'Orange 3', 'Yellow 4', 'Green 5', 'Blue 6', 'Violet 7', 'Gray 8', 'White 9'])
+        band_mult = QComboBox()
+        band_mult.addItems(['Black x1 Ω','Brown  x10 Ω', 'Red  x100 Ω', 'Orange x1 kΩ', 'Yellow x10 kΩ',
+                            'Green x100 kΩ', 'Blue x1 MΩ', 'Violet x10 MΩ', 'Gray x100 MΩ', 'White x1 GΩ',
+                            'Gold x.1 Ω', 'Silver x.01 Ω'])
+        band_tol = QComboBox()
+        band_tol.addItems(['Brown  ±1%', 'Red   ±2%', 'Green ±0.5%', 'Blue ±0.25%', 'Violet ±0.1%', 'Gray ±0.05%',
+                           'Gold ±1%', 'Silver ±10%'])
+        calc_btn = QPushButton('Calculate')
+        calc_btn.setProperty("menuButton", False)
+        self.resband_output = QLineEdit()
+
+
+        # setup gridlayout
+        grid = QGridLayout()
+
+        # add widgets to grid
+        grid.addWidget(title, 0, 0, 1, 2)
+        grid.addWidget(label_one, 1, 0)
+        grid.addWidget(band_one, 1, 1)
+        grid.addWidget(label_two, 2, 0)
+        grid.addWidget(band_two, 2, 1)
+        grid.addWidget(label_mult, 3, 0)
+        grid.addWidget(band_mult, 3, 1)
+        grid.addWidget(label_tolerance, 4, 0)
+        grid.addWidget(band_tol, 4, 1)
+        grid.addWidget(calc_btn, 5, 1)
+        grid.addWidget(label_value, 6, 0)
+        grid.addWidget(self.resband_output, 6, 1)
+
+        # create back and favorite button
+        back_btn = QPushButton('Back', self)
+        back_btn.clicked.connect(lambda: self.backButton(self.phys_menu_stack_position))  # update menu to return to
+        back_btn.setProperty("menuButton", True)
+        fav_btn = QPushButton('Add To Favorites')
+        fav_btn.setProperty("menuButton", True)
+
+        # build favorites button for widget
+        fav_menu_btn = QPushButton('Resistor Bands')
+        fav_menu_btn.setProperty("menuButton", True)
+        fav_menu_btn.clicked.connect(lambda: self.ButtonHandler(self.resband_widget_stack_position))
+
+        fav_btn.clicked.connect(lambda: self.favButton(fav_menu_btn))
+        grid.addWidget(fav_btn, 7, 0)
+        grid.addWidget(back_btn, 7, 1)
+
+        # create stack object
+        self.resband_widget.setLayout(grid)
+        self.show()
 
     """
         CHEMISTRY MENU, HELPER CLASSES, AND WIDGETS
