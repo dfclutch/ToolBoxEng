@@ -1,5 +1,6 @@
 from ToolWidget import ToolWidget
 import scipy.integrate
+import scipy.misc
 import math
 import MathSciConstants
 
@@ -82,3 +83,25 @@ class Integrate(ToolWidget):
         result, err = scipy.integrate.quad(integrand, lower, upper)
         return result
 
+
+class Derivative(ToolWidget):
+
+    def calc(*args):
+        """""
+        Calculates the value of the first derivative of a function with respect to x.
+            Args:
+                args[0]: A string with the function in it
+                args[1]: The point at which the derivative should be calculated
+        """
+
+        functionString = str(args[0])
+
+        def derive(x):
+            e = MathSciConstants.e
+            pi = MathSciConstants.pi
+            y = eval(functionString, globals(), locals())
+            return y
+
+        point = args[1]
+
+        return scipy.misc.derivative(derive, point)

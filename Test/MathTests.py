@@ -2,6 +2,7 @@ import unittest
 import MathToolWidgets
 import math
 
+
 class TestMathMethods(unittest.TestCase):
 
     def testSquare(self):
@@ -67,6 +68,43 @@ class TestMathMethods(unittest.TestCase):
         expected = (math.e ** 5) - 1
         result = MathToolWidgets.Integrate.calc(func, lower, upper)
         self.assertEqual(expected, result)
+
+    def testIntegralLargeX(self):
+        func = "x"
+        lower = 1
+        upper = 1000000000
+        expected = 999999999999999999/2
+        result = MathToolWidgets.Integrate.calc(func, lower, upper)
+        self.assertAlmostEqual(expected, result)
+
+    def testDerivativeX(self):
+        func = "x"
+        point = 2
+        expected = 1
+        result = MathToolWidgets.Derivative.calc(func, point)
+        self.assertEqual(expected, result)
+
+    def testDerivative2X(self):
+        func = "2*x"
+        point = 15
+        expected = 2
+        result = MathToolWidgets.Derivative.calc(func, point)
+        self.assertEqual(expected, result)
+
+    def testDerivativeXSquared(self):
+        func = "x**2"
+        point = 3
+        expected = 6
+        result = MathToolWidgets.Derivative.calc(func, point)
+        self.assertEqual(expected, result)
+
+    def testDerivativeEuler(self):
+        func = "e**x"
+        point = 10
+        expected = math.e**10
+        result = MathToolWidgets.Derivative.calc(func, point)
+        self.assertEqual(expected, result)
+
 
 if __name__ == '__main__':
     unittest.main()
