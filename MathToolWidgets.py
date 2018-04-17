@@ -1,6 +1,5 @@
 from ToolWidget import ToolWidget
-import scipy.integrate
-import scipy.misc
+import sympy
 import math
 import MathSciConstants
 
@@ -69,19 +68,15 @@ class Integrate(ToolWidget):
                 args[2]: The upper bound of the integral
         """
 
-        functionString = str(args[0])
+        x = sympy.symbols('x')
 
-        def integrand(x):
-            e = MathSciConstants.e
-            pi = MathSciConstants.pi
-            y = eval(functionString, globals(), locals())
-            return y
+        functionString = str(args[0])
 
         lower = args[1]
         upper = args[2]
 
-        result, err = scipy.integrate.quad(integrand, lower, upper)
-        return result
+        res = sympy.integrate(sympy.sympify(functionString), (x, lower, upper))
+        return float(res)
 
 
 class Derivative(ToolWidget):
@@ -94,14 +89,12 @@ class Derivative(ToolWidget):
                 args[1]: The point at which the derivative should be calculated
         """
 
+        x = sympy.symbols('x')
+
         functionString = str(args[0])
 
-        def derive(x):
-            e = MathSciConstants.e
-            pi = MathSciConstants.pi
-            y = eval(functionString, globals(), locals())
-            return y
+        evalPoint = args[1]
 
-        point = args[1]
+        res = sympy.diff(sympy.sympify(functionString), x)
 
-        return scipy.misc.derivative(derive, point)
+        return res.evalf(subs={x: evalPoint})
