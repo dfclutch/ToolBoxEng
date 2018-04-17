@@ -27,7 +27,8 @@ class ResistorBand(ToolWidget):
             'Blue 6': 6,
             'Violet 7': 7,
             'Gray 8': 8,
-            'White 9': 9
+            'White 9': 9,
+            'Black 10': 10
         }
         mult = {
             'Black x1 Ω': 1,

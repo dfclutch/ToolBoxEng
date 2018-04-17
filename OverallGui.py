@@ -4,6 +4,7 @@ from PyQt5.QtGui import *
 from PyQt5.Qt import  QColor
 from PyQt5.QtCore import *
 import MathToolWidgets
+import PhysicsToolWidgets
 import time
 
 
@@ -485,9 +486,9 @@ class MainGUI(QMainWindow):
         label_tolerance = QLabel('Tolerance: ')
         label_value = QLabel('Value: ')
         band_one = QComboBox()
-        band_one.addItems(['Brown 1', 'Red 2', 'Orange 3', 'Yellow 4', 'Green 5', 'Blue 6', 'Violet 7', 'Gray 8', 'White 9'])
+        band_one.addItems(['Black 0', 'Brown 1', 'Red 2', 'Orange 3', 'Yellow 4', 'Green 5', 'Blue 6', 'Violet 7', 'Gray 8', 'White 9'])
         band_two = QComboBox()
-        band_two.addItems(['Brown 1', 'Red 2', 'Orange 3', 'Yellow 4', 'Green 5', 'Blue 6', 'Violet 7', 'Gray 8', 'White 9'])
+        band_two.addItems(['Black 0', 'Brown 1', 'Red 2', 'Orange 3', 'Yellow 4', 'Green 5', 'Blue 6', 'Violet 7', 'Gray 8', 'White 9'])
         band_mult = QComboBox()
         band_mult.addItems(['Black x1 Ω','Brown  x10 Ω', 'Red  x100 Ω', 'Orange x1 kΩ', 'Yellow x10 kΩ',
                             'Green x100 kΩ', 'Blue x1 MΩ', 'Violet x10 MΩ', 'Gray x100 MΩ', 'White x1 GΩ',
@@ -538,7 +539,12 @@ class MainGUI(QMainWindow):
         self.show()
 
     def resband_calculate(self, one, two, mult, tol):
-        pass
+        try:
+            result = PhysicsToolWidgets.ResistorBand.calc(str(one.currentText()), str(two.currentText()),
+                                                          str(mult.currentText()), str(tol.currentText()))
+            self.resband_output.setText(result)
+        except:
+            self.resband_output.setText("Improper Input")
 
     """
         CHEMISTRY MENU, HELPER CLASSES, AND WIDGETS
