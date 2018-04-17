@@ -1,7 +1,11 @@
 from ToolWidget import ToolWidget
 import sympy
+import sympy.parsing.sympy_parser
+from sympy.parsing.sympy_parser import standard_transformations, implicit_multiplication_application
 import math
 import MathSciConstants
+
+transformations = standard_transformations + (implicit_multiplication_application,)
 
 
 class Add(ToolWidget):
@@ -72,10 +76,12 @@ class Integrate(ToolWidget):
 
         functionString = str(args[0])
 
+        integrand = sympy.parsing.sympy_parser.parse_expr(functionString, transformations=transformations)
+
         lower = args[1]
         upper = args[2]
 
-        res = sympy.integrate(sympy.sympify(functionString), (x, lower, upper))
+        res = sympy.integrate(integrand, (x, lower, upper))
         return float(res)
 
 
@@ -93,8 +99,10 @@ class Derivative(ToolWidget):
 
         functionString = str(args[0])
 
+        differential = sympy.parsing.sympy_parser.parse_expr(functionString, transformations=transformations)
+
         evalPoint = args[1]
 
-        res = sympy.diff(sympy.sympify(functionString), x)
+        res = sympy.diff(differential, x)
 
         return res.evalf(subs={x: evalPoint})
