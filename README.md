@@ -2,6 +2,8 @@
 Math, Physics, and Chemistry Engineering Toolkit
 
 CONTRIBUTORS:
-dan filler
-jason hahn
-adam 'web' benway
+Dan Filler
+
+Jason Hahn
+
+Adam 'Web' Benway
