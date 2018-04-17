@@ -12,13 +12,17 @@ class MainGUI(QMainWindow):
     def __init__(self):
         super().__init__()
         self.title = 'Engineering Toolbox'
-        screen_width = QDesktopWidget().availableGeometry().width()
-        screen_height = QDesktopWidget().availableGeometry().height()
-        self.left = int(100 * screen_width / 3840)
-        self.top = int(100 * screen_height / 2060)
-        self.width = int(900 * screen_width / 3840)
-        self.height = int(750 * screen_height / 2060)
-
+        self.screen_width = QDesktopWidget().availableGeometry().width()
+        if self.screen_width < 3000:
+            self.left = 100 / 2
+            self.top = 100 / 2
+            self.width = 900 / 2
+            self.height = 750 / 2
+        else:
+            self.left = 100
+            self.top = 100
+            self.width = 900
+            self.height = 750
 
         self.initUI()
         self.stacked_layout = QStackedLayout()
@@ -44,45 +48,85 @@ class MainGUI(QMainWindow):
         p = self.palette()
         p.setColor(self.backgroundRole(), QColor('#444039'))
         self.setPalette(p)
-        self.setStyleSheet("""
-            QPushButton[menuButton = "true"]{
-                border: 1px solid #293744;
-                border-radius: 5px;
-                padding: 10px 20px;
-                background-color: #ff9400;
-                min-width: 50px;
-                min-height: 100px;
-                font-family: "Helvetica";
-                font-size: 48px;
-            }
-            
-            QPushButton[menuButton = "false"] {
-                border: 1px solid #293744;
-                border-radius: 5px;
-                padding: 5px 20px;
-                background-color: #ff9400;
-                min-width: 50px;
-                min-height: 80px;
-                font-family: "Helvetica";
-                font-size: 32px;           
-            }
-            
-            
-            QLabel {   
-                font-family: "Helvetica";
-                font-size: 36px;    
-                color: white;        
-            }
-            
-            QWidget {
-                padding: 20px;
-            }
-            
-            QLineEdit {
-                font-size: 32px;
-                font-family: "Helvetica";
-            }   
-                                    """)
+        if self.screen_width < 3000:
+            self.setStyleSheet("""
+                QPushButton[menuButton = "true"]{
+                    border: 1px solid #293744;
+                    border-radius: 5px;
+                    padding: 4px;
+                    background-color: #ff9400;
+                    font-family: "Helvetica";
+                    font-size: 18px;
+                    min-height: 40px;
+                }
+                
+                QPushButton[menuButton = "false"] {
+                    border: 1px solid #293744;
+                    border-radius: 5px;
+                    padding: 2px;
+                    background-color: #ff9400;
+                    font-family: "Helvetica";
+                    font-size: 14px;          
+                    min-height: 30px; 
+                }
+                
+                QLabel {   
+                    font-family: "Helvetica";
+                    font-size: 14px;    
+                    color: white;        
+                }
+                
+                QWidget {
+                    padding: 5px;
+                }
+                
+                QLineEdit {
+                    font-size: 14px;
+                    font-family: "Helvetica";
+                    min-height: 18px;
+                }   
+                                        """)
+        else:
+            self.setStyleSheet("""
+                QPushButton[menuButton = "true"]{
+                    border: 1px solid #293744;
+                    border-radius: 5px;
+                    padding: 10px 20px;
+                    background-color: #ff9400;
+                    min-width: 50px;
+                    min-height: 100px;
+                    font-family: "Helvetica";
+                    font-size: 48px;
+                }
+
+                QPushButton[menuButton = "false"] {
+                    border: 1px solid #293744;
+                    border-radius: 5px;
+                    padding: 5px 20px;
+                    background-color: #ff9400;
+                    min-width: 50px;
+                    min-height: 80px;
+                    font-family: "Helvetica";
+                    font-size: 32px;           
+                }
+
+
+                QLabel {   
+                    font-family: "Helvetica";
+                    font-size: 36px;    
+                    color: white;        
+                }
+
+                QWidget {
+                    padding: 20px;
+                }
+
+                QLineEdit {
+                    font-size: 32px;
+                    font-family: "Helvetica";
+                }   
+                                        """)
+
         self.show()
     def addPages(self):
         """Adds pages to stack in order of their stack position"""
@@ -576,11 +620,17 @@ if __name__ == '__main__':
     splash = QSplashScreen(splash_pix, Qt.WindowStaysOnTopHint)
     splash.setMask(splash_pix.mask())
     screen_width = QDesktopWidget().availableGeometry().width()
-    screen_height = QDesktopWidget().availableGeometry().height()
-    left = int(100 * screen_width / 3840)
-    top = int(100 * screen_height / 2060)
-    width = int(900 * screen_width / 3840)
-    height = int(750 * screen_height / 2060)
+    if screen_width < 3000:
+        left = 100 /2
+        top = 100 /2
+        width = 900 /2
+        height = 750 /2
+
+    else:
+        left = 100
+        top = 100
+        width = 900
+        height = 750
 
     splash.setGeometry(left, top, width, height)
     splash.show()
