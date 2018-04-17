@@ -453,8 +453,8 @@ class MainGUI(QMainWindow):
                            'Gold ±1%', 'Silver ±10%'])
         calc_btn = QPushButton('Calculate')
         calc_btn.setProperty("menuButton", False)
+        calc_btn.clicked.connect(lambda: self.resband_calculate(band_one, band_two, band_mult, band_tol))
         self.resband_output = QLineEdit()
-
 
         # setup gridlayout
         grid = QGridLayout()
@@ -492,6 +492,9 @@ class MainGUI(QMainWindow):
         # create stack object
         self.resband_widget.setLayout(grid)
         self.show()
+
+    def resband_calculate(self, one, two, mult, tol):
+        pass
 
     """
         CHEMISTRY MENU, HELPER CLASSES, AND WIDGETS
