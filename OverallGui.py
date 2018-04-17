@@ -13,10 +13,12 @@ class MainGUI(QMainWindow):
     def __init__(self):
         super().__init__()
         self.title = 'Engineering Toolbox'
-        self.left = 100
-        self.top = 100
-        self.width = 900
-        self.height = 750
+        screen_width = QDesktopWidget().availableGeometry().width()
+        screen_height = QDesktopWidget().availableGeometry().height()
+        self.left = 100 * 3840 / screen_width
+        self.top = 100 * 2060 / screen_height
+        self.width = 900 * 3840 / screen_width
+        self.height = 750 * 2060 / screen_height
         self.initUI()
         self.stacked_layout = QStackedLayout()
 
@@ -34,6 +36,7 @@ class MainGUI(QMainWindow):
     def initUI(self):
         self.setWindowTitle(self.title)
         self.setGeometry(self.left, self.top, self.width, self.height)
+
  
         # Set window background color
         self.setAutoFillBackground(True)
@@ -222,9 +225,6 @@ class MainGUI(QMainWindow):
         back_btn = QPushButton('Back', self)
         back_btn.setProperty("menuButton", True)
         back_btn.clicked.connect(lambda: self.backButton(self.math_menu_stack_position))
-        fav_btn = QPushButton('Add to Favorites')
-        fav_btn.clicked.connect(lambda: self.favButton(self.add_widget))
-        fav_btn.setProperty("menuButton", True)
 
         # setup gridlayout
         grid = QGridLayout()
@@ -237,8 +237,7 @@ class MainGUI(QMainWindow):
         grid.addWidget(calc_btn, 3, 1, 1, 1)
         grid.addWidget(output_label, 4, 0)
         grid.addWidget(self.add_output, 4, 1)
-        grid.addWidget(back_btn, 5, 1, 1, 1)
-        grid.addWidget(fav_btn, 5, 0, 1, 1)
+        grid.addWidget(back_btn, 5, 1, 1, 2)
 
         # create stack object
         self.add_widget.setLayout(grid)
@@ -373,8 +372,6 @@ class MainGUI(QMainWindow):
         except ValueError:
             self.integral_output.setText("Please enter a number")
 
-    # TODO: add new widget pages and add to initialization stack
-
     """
         PHYSICS MENU, HELPER CLASSES, AND WIDGETS
     """
@@ -446,15 +443,22 @@ class MainGUI(QMainWindow):
         back_btn.setProperty("menuButton", True)
         label = QLabel('Favorites')
 
-        # create dynamic buttons
-        # TODO: IMPLEMENT DYNAMIC BUTTON CREATION FROM DICT
-
 
         # create layout
         self.fav_menu_layout = QVBoxLayout()
         self.fav_menu_layout.addWidget(label)
-        self.fav_menu_layout.addWidget(back_btn)
 
+        # create dynamic buttons
+        # TODO: GET THE FAVORITES MENU TO WORK EVENTUALLY
+        # for button in self.fav_menu_buttons:
+        #     sp = self.fav_menu_buttons.get(button)
+        #     new_btn = QPushButton(button)
+        #     new_btn.setProperty("menuButton", True)
+        #     new_btn.clicked.connect(lambda: self.buttonHandler(sp))
+        #     self.fav_menu_layout.addWidget(new_btn)
+
+
+        self.fav_menu_layout.addWidget(back_btn)
 
         # create stack object
         self.fav_menu = QWidget()
@@ -473,11 +477,6 @@ class MainGUI(QMainWindow):
     def favButton(self, widget):
         self.fav_menu_buttons[button_text] = widget.property("stack_position")
 
-    def findButton(self):
-        text = self.sender.text()
-        button = self.fav_menu_buttons.get(text)
-        sp = button.property("stack_position")
-        self.ButtonHandler(sp)
 
     def ButtonHandler(self, sp):
         self.stacked_layout.setCurrentIndex(sp)
@@ -488,10 +487,13 @@ if __name__ == '__main__':
     splash_pix = QPixmap('splash_screen.png')
     splash = QSplashScreen(splash_pix, Qt.WindowStaysOnTopHint)
     splash.setMask(splash_pix.mask())
-    left = 100
-    top = 100
-    width = 900
-    height = 750
+    screen_width = QDesktopWidget().availableGeometry().width()
+    screen_height = QDesktopWidget().availableGeometry().height()
+    left = 100 * 3840 / screen_width
+    top = 100 * 2060 / screen_height
+    width = 900 * 3840 / screen_width
+    height = 750 * 2060 / screen_height
+
     splash.setGeometry(left, top, width, height)
     splash.show()
     app.processEvents()
