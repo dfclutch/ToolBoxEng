@@ -63,6 +63,7 @@ class MainGUI(QMainWindow):
                 font-size: 32px;           
             }
             
+            
             QLabel {   
                 font-family: "Helvetica";
                 font-size: 36px;    
@@ -200,10 +201,13 @@ class MainGUI(QMainWindow):
 
     def create_add_widget(self):
         """Widget for adding numbers"""
+        # widget attributes
         self.add_widget_stack_position = 5
 
         # build stack widget
         self.add_widget = QWidget()
+        self.add_widget.setProperty("name", "Add")
+        self.add_widget.setProperty("stack_position", 5)
 
         # create inputs buttons and outputs
         input_one_label = QLabel('Input One')
@@ -218,6 +222,9 @@ class MainGUI(QMainWindow):
         back_btn = QPushButton('Back', self)
         back_btn.setProperty("menuButton", True)
         back_btn.clicked.connect(lambda: self.backButton(self.math_menu_stack_position))
+        fav_btn = QPushButton('Add to Favorites')
+        fav_btn.clicked.connect(lambda: self.favButton(self.add_widget))
+        fav_btn.setProperty("menuButton", True)
 
         # setup gridlayout
         grid = QGridLayout()
@@ -230,7 +237,8 @@ class MainGUI(QMainWindow):
         grid.addWidget(calc_btn, 3, 1, 1, 1)
         grid.addWidget(output_label, 4, 0)
         grid.addWidget(self.add_output, 4, 1)
-        grid.addWidget(back_btn, 5, 0, 1,2)
+        grid.addWidget(back_btn, 5, 1, 1, 1)
+        grid.addWidget(fav_btn, 5, 0, 1, 1)
 
         # create stack object
         self.add_widget.setLayout(grid)
@@ -400,7 +408,7 @@ class MainGUI(QMainWindow):
     """
 
     def create_chem_menu(self):
-        """phys Submenu"""
+        """chem Submenu"""
         self.chem_menu_stack_position = 3
         # buttons for physics subwidgets
         back_btn = QPushButton('Back', self)
@@ -428,28 +436,31 @@ class MainGUI(QMainWindow):
     """
 
     def create_fav_menu(self):
-        """phys Submenu"""
+        """fav Submenu"""
         self.fav_menu_stack_position = 4
+        self.fav_menu_buttons = {}
+
         # buttons for physics subwidgets
         back_btn = QPushButton('Back', self)
         back_btn.clicked.connect(lambda: self.backButton(self.main_menu_stack_position))
         back_btn.setProperty("menuButton", True)
         label = QLabel('Favorites')
 
+        # create dynamic buttons
+        # TODO: IMPLEMENT DYNAMIC BUTTON CREATION FROM DICT
+
+
         # create layout
         self.fav_menu_layout = QVBoxLayout()
         self.fav_menu_layout.addWidget(label)
         self.fav_menu_layout.addWidget(back_btn)
+
 
         # create stack object
         self.fav_menu = QWidget()
         self.fav_menu.setLayout(self.fav_menu_layout)
         self.show()
 
-    def FavMenuButtonClickHandler(self):
-        """Handles Favorites submenu button clicks"""
-        if True: # self.sender() == self.widget_btn:
-            pass
 
     """
         OTHER METHODS
@@ -459,9 +470,17 @@ class MainGUI(QMainWindow):
         """Goes back in the layout stack"""
         self.stacked_layout.setCurrentIndex(index)
 
-    def create_splash_screen(self):
-        """Creates a loading screen"""
+    def favButton(self, widget):
+        self.fav_menu_buttons[button_text] = widget.property("stack_position")
 
+    def findButton(self):
+        text = self.sender.text()
+        button = self.fav_menu_buttons.get(text)
+        sp = button.property("stack_position")
+        self.ButtonHandler(sp)
+
+    def ButtonHandler(self, sp):
+        self.stacked_layout.setCurrentIndex(sp)
 
 
 if __name__ == '__main__':
@@ -476,9 +495,8 @@ if __name__ == '__main__':
     splash.setGeometry(left, top, width, height)
     splash.show()
     app.processEvents()
-    time.sleep(2)
-
     m = MainGUI()
+    time.sleep(2)
     m.show()
     splash.finish(m)
     sys.exit(app.exec_())
