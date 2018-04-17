@@ -72,19 +72,20 @@ class Integrate(ToolWidget):
                 args[2]: The upper bound of the integral
         """
 
-        x = sympy.symbols('x')
+        try:
+            x = sympy.symbols('x')
 
-        functionString = str(args[0])
+            functionString = str(args[0])
 
-        integrand = sympy.parsing.sympy_parser.parse_expr(functionString, transformations=transformations)
+            integrand = sympy.parsing.sympy_parser.parse_expr(functionString, transformations=transformations)
 
-        lower = args[1]
-        upper = args[2]
+            lower = args[1]
+            upper = args[2]
 
-        res = sympy.integrate(integrand, (x, lower, upper))
-        return float(res)
-
-
+            res = sympy.integrate(integrand, (x, lower, upper))
+            return float(res)
+        except:
+            return "Improperly Formatted Function"
 class Derivative(ToolWidget):
 
     def calc(*args):

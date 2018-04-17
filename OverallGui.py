@@ -290,13 +290,13 @@ class MainGUI(QMainWindow):
         grid.addWidget(input_two, 2, 1)
         grid.addWidget(result, 4, 0)
         grid.addWidget(self.power_output, 4, 1)
-        grid.addWidget(calc_btn, 3, 1)
+        grid.addWidget(calc_btn, 3, 1, 1, 1)
 
         # create back button
         back_btn = QPushButton('Back', self)
         back_btn.clicked.connect(lambda: self.backButton(self.math_menu_stack_position))  # update menu to return to
         back_btn.setProperty("menuButton", True)
-        grid.addWidget(back_btn, 5, 0, 2, 0)
+        grid.addWidget(back_btn, 5, 1, 1, 1)
 
         # create stack object
         self.power_widget.setLayout(grid)
@@ -340,7 +340,7 @@ class MainGUI(QMainWindow):
         grid = QGridLayout()
 
         # add widgets to grid
-        grid.addWidget(title, 0,0,1,1)
+        grid.addWidget(title, 0,0,1,2)
         grid.addWidget(func_label, 1,0)
         grid.addWidget(func_input, 1,1)
         grid.addWidget(upper_label, 2,0)
