@@ -6,6 +6,7 @@ from PyQt5.QtCore import *
 import MathToolWidgets
 import PhysicsToolWidgets
 import time
+import csv
 
 
 class MainGUI(QMainWindow):
@@ -129,6 +130,7 @@ class MainGUI(QMainWindow):
                                         """)
 
         self.show()
+
     def addPages(self):
         """Adds pages to stack in order of their stack position"""
         self.create_math_menu()
@@ -147,13 +149,15 @@ class MainGUI(QMainWindow):
         self.stacked_layout.addWidget(self.integral_widget)
         self.create_resband_widget()
         self.stacked_layout.addWidget(self.resband_widget)
+        self.create_dense_widget()
+        self.stacked_layout.addWidget(self.dense_widget)
 
         self.stacked_layout.setCurrentIndex(0)
-
 
     """
         MAIN MENU AND MAIN MENU HELPER CLASSES
     """
+
     def create_main_menu_layout(self):
         """Creates main menu"""
         self.main_menu_stack_position = 0
@@ -224,16 +228,17 @@ class MainGUI(QMainWindow):
         back_btn.setProperty("menuButton", True)
 
         # create layout
-        self.math_menu_layout = QGridLayout()
-        self.math_menu_layout.addWidget(label, 0 , 0, 1, 1)
-        self.math_menu_layout.addWidget(self.widget_btn_add, 1, 0)
-        self.math_menu_layout.addWidget(self.widget_btn_power, 1, 1)
-        self.math_menu_layout.addWidget(self.widget_btn_integral, 1, 2)
-        self.math_menu_layout.addWidget(self.widget_btn_derivative, 1, 3)
-        self.math_menu_layout.addWidget(self.widget_btn_RRE, 2, 0)
-        self.math_menu_layout.addWidget(self.widget_btn_determinant, 2, 1)
-        self.math_menu_layout.addWidget(back_btn, 3, 0, 1, 4)
-
+        self.math_menu_layout = QVBoxLayout()
+        self.math_menu_grid_layout = QGridLayout()
+        self.math_menu_grid_layout.addWidget(label, 0 , 0, 1, 1)
+        self.math_menu_grid_layout.addWidget(self.widget_btn_add, 1, 0)
+        self.math_menu_grid_layout.addWidget(self.widget_btn_power, 1, 1)
+        self.math_menu_grid_layout.addWidget(self.widget_btn_integral, 1, 2)
+        self.math_menu_grid_layout.addWidget(self.widget_btn_derivative, 1, 3)
+        self.math_menu_grid_layout.addWidget(self.widget_btn_RRE, 2, 0)
+        self.math_menu_grid_layout.addWidget(self.widget_btn_determinant, 2, 1)
+        self.math_menu_layout.addLayout(self.math_menu_grid_layout)
+        self.math_menu_layout.addWidget(back_btn)
 
         # create stack object
 
@@ -454,11 +459,15 @@ class MainGUI(QMainWindow):
         self.widget_btn_resband = QPushButton('Resistor Bands')
         self.widget_btn_resband.setProperty("menuButton", False)
         self.widget_btn_resband.clicked.connect(self.PhysMenuButtonClickHandler)
+        self.widget_btn_dense = QPushButton('Material Densities')
+        self.widget_btn_dense.setProperty("menuButton", False)
+        self.widget_btn_dense.clicked.connect(self.PhysMenuButtonClickHandler)
 
         # create layout
         self.phys_menu_layout = QGridLayout()
         self.phys_menu_layout.addWidget(label, 0, 0, 1, 1)
         self.phys_menu_layout.addWidget(self.widget_btn_resband, 1, 0, 1, 1)
+        self.phys_menu_layout.addWidget(self.widget_btn_dense, 1, 1, 1, 1)
         self.phys_menu_layout.addWidget(back_btn, 2, 0, 1, 2)
 
         # create stack object
@@ -470,6 +479,8 @@ class MainGUI(QMainWindow):
         """Handles physics submenu button clicks"""
         if self.sender() == self.widget_btn_resband:
             self.stacked_layout.setCurrentIndex(self.resband_widget_stack_position)
+        if self.sender() == self.widget_btn_dense:
+            self.stacked_layout.setCurrentIndex(self.dense_widget_stack_position)
 
     def create_resband_widget(self):
         """Widget for Calculating resistor values"""
@@ -546,6 +557,35 @@ class MainGUI(QMainWindow):
         except:
             self.resband_output.setText("Improper Input")
 
+    def create_dense_widget(self):
+        """Widget for ...."""
+        self.dense_widget_stack_position = 9  # set stack position, reference attached doc
+
+        # build stack widget
+        self.dense_widget = QWidget()
+
+        # create inputs, buttons, and outputs
+        label_title = QLabel('Material Density Reference: ')
+        label_input = QLabel('Material: ')
+        label_metr = QLabel('Grams / CM³')
+        label_imp = QLabel('Pounds / Ft.³')
+        mat = QComboBox()
+
+        # setup gridlayout
+        grid = QGridLayout()
+        grid.setSpacing(10)
+
+        # add widgets to grid
+
+        # create back button
+        back_btn = QPushButton('Back', self)
+        back_btn.clicked.connect(lambda: self.backButton(self.menu_stack_position))  # update menu to return to
+        grid.addWidget(back_btn)
+
+        # create stack object
+        self.CHANGE_NAME_widget.setLayout(grid)
+        self.show()
+
     """
         CHEMISTRY MENU, HELPER CLASSES, AND WIDGETS
     """
@@ -619,7 +659,6 @@ class MainGUI(QMainWindow):
     def ButtonHandler(self, sp):
         self.stacked_layout.setCurrentIndex(sp)
 
-
 if __name__ == '__main__':
     app = QApplication(sys.argv)
 
@@ -639,8 +678,6 @@ if __name__ == '__main__':
     scaled = splash_pix.scaled(width, height, Qt.IgnoreAspectRatio, Qt.FastTransformation)
     splash = QSplashScreen(scaled, Qt.WindowStaysOnTopHint)
     splash.setMask(scaled.mask())
-
-
 
     splash.setGeometry(left, top, width, height)
 

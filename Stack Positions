@@ -7,3 +7,4 @@ self.add_widget_stack_position, 5
 self.power_widget_stack_position, 6
 self.integral_widget_stack_position, 7
 self.resband_widget_stack_position, 8
+self.dense_widget_stack_position, 9
