@@ -16,6 +16,7 @@ def create_NAME_widget(self):
     # create back button
     back_btn = QPushButton('Back', self)
     back_btn.clicked.connect(lambda: self.backButton(self.menu_stack_position))  # update menu to return to
+    back_btn.setProperty("menuButton", True)
     grid.addWidget(back_btn)
 
     # create stack object

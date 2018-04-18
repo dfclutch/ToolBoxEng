@@ -55,7 +55,6 @@ class MainGUI(QMainWindow):
                 QPushButton[menuButton = "true"]{
                     border: 1px solid #293744;
                     border-radius: 5px;
-                    padding: 4px;
                     background-color: #ff9400;
                     font-family: "Helvetica";
                     font-size: 18px;
@@ -65,10 +64,9 @@ class MainGUI(QMainWindow):
                 QPushButton[menuButton = "false"] {
                     border: 1px solid #293744;
                     border-radius: 5px;
-                    padding: 2px;
                     background-color: #ff9400;
                     font-family: "Helvetica";
-                    font-size: 14px;          
+                    font-size: 18px;          
                     min-height: 30px; 
                 }
                 
@@ -86,14 +84,18 @@ class MainGUI(QMainWindow):
                     font-size: 14px;
                     font-family: "Helvetica";
                     min-height: 18px;
+                    max-width: 340px;
                 }   
+                
+                QComboBox {
+                    max-width: 340px;
+                }
                                         """)
         else:
             self.setStyleSheet("""
                 QPushButton[menuButton = "true"]{
                     border: 1px solid #293744;
                     border-radius: 5px;
-                    padding: 10px 20px;
                     background-color: #ff9400;
                     min-width: 50px;
                     min-height: 100px;
@@ -104,12 +106,11 @@ class MainGUI(QMainWindow):
                 QPushButton[menuButton = "false"] {
                     border: 1px solid #293744;
                     border-radius: 5px;
-                    padding: 5px 20px;
                     background-color: #ff9400;
                     min-width: 50px;
                     min-height: 80px;
                     font-family: "Helvetica";
-                    font-size: 32px;           
+                    font-size: 36px;           
                 }
 
 
@@ -516,7 +517,7 @@ class MainGUI(QMainWindow):
         grid = QGridLayout()
 
         # add widgets to grid
-        grid.addWidget(title, 0, 0, 1, 2)
+        grid.addWidget(title, 0, 0)
         grid.addWidget(label_one, 1, 0)
         grid.addWidget(band_one, 1, 1)
         grid.addWidget(label_two, 2, 0)
@@ -567,24 +568,73 @@ class MainGUI(QMainWindow):
         # create inputs, buttons, and outputs
         label_title = QLabel('Material Density Reference: ')
         label_input = QLabel('Material: ')
-        label_metr = QLabel('Grams / CM³')
-        label_imp = QLabel('Pounds / Ft.³')
+        label_metr = QLabel('Grams / cm³')
+        label_imp = QLabel('Pounds / ft³')
         mat = QComboBox()
+
+        with open('Density01.csv') as csvfile:
+            dense = csv.reader(csvfile, delimiter=",")
+            mats = []
+            self.metr = {}
+            self.imp = {}
+            for row in dense:
+                mats.append(row[0])
+                self.metr[row[0]] = row[1]
+                self.imp[row[0]] = row[2]
+
+
+        mat.addItems(mats)
+
+        self.dense_out_metr = QLineEdit()
+        self.dense_out_imp = QLineEdit()
+        calc_btn = QPushButton('Calculate')
+        calc_btn.setProperty("menuButton", False)
+        calc_btn.clicked.connect(lambda: self.dense_calculate(str(mat.currentText())))
 
         # setup gridlayout
         grid = QGridLayout()
         grid.setSpacing(10)
 
         # add widgets to grid
+        grid.addWidget(label_title, 0,0,2,1)
+        grid.addWidget(label_input, 1,0)
+        grid.addWidget(mat, 1, 1)
+        grid.addWidget(calc_btn, 2, 1)
+        grid.addWidget(label_metr, 3,0)
+        grid.addWidget(self.dense_out_metr, 3, 1)
+        grid.addWidget(label_imp, 4, 0)
+        grid.addWidget(self.dense_out_imp, 4, 1)
 
         # create back button
         back_btn = QPushButton('Back', self)
-        back_btn.clicked.connect(lambda: self.backButton(self.menu_stack_position))  # update menu to return to
-        grid.addWidget(back_btn)
+        back_btn.clicked.connect(lambda: self.backButton(self.phys_menu_stack_position))  # update menu to return to
+        back_btn.setProperty("menuButton", True)
+        fav_btn = QPushButton('Add To Favorites')
+        fav_btn.setProperty("menuButton", True)
+
+        # build favorites button for widget
+        fav_menu_btn = QPushButton('Material Densities')
+        fav_menu_btn.setProperty("menuButton", True)
+        fav_menu_btn.clicked.connect(lambda: self.ButtonHandler(self.dense_widget_stack_position))
+
+        fav_btn.clicked.connect(lambda: self.favButton(fav_menu_btn))
+        grid.addWidget(fav_btn, 5, 0)
+        grid.addWidget(back_btn, 5, 1)
 
         # create stack object
-        self.CHANGE_NAME_widget.setLayout(grid)
+        self.dense_widget.setLayout(grid)
         self.show()
+
+    def dense_calculate(self, material):
+        try:
+            metr_dense = self.metr.get(material)
+            imp_dense = self.imp.get(material)
+
+            self.dense_out_metr.setText(metr_dense)
+            self.dense_out_imp.setText(imp_dense)
+        except:
+            self.dense_out_metr.setText("Something's Not Right!?")
+
 
     """
         CHEMISTRY MENU, HELPER CLASSES, AND WIDGETS
