@@ -55,4 +55,53 @@ class ResistorBand(ToolWidget):
         return str(value) + ohms + ' ' + percent
 
 
+class VoltageDrop(ToolWidget):
 
+    @staticmethod
+    def calc(*args):
+        """""
+        Calculates the voltage drop over resistors in a simple series circuit.
+        Args:
+            args[0]: Voltage of power source
+            args[1]: list with voltage of each resistor e.g [22, 18, 44]
+        """
+
+        voltage = float(args[0])
+        resistors = list(args[1])
+
+        totalResistance = sum(resistors)
+
+        current = voltage / totalResistance
+
+        output = {}
+
+        for i in range(0, len(resistors)):
+            drop = current * resistors[i]
+            string = str(resistors[i]) + "Ω resistor"
+            output[string] = str(drop) + " volts"
+
+        return output
+
+
+class AmpChange(ToolWidget):
+
+    @staticmethod
+    def calc(*args):
+        """""
+        Calculates the change in amperage over resistors in a simple parallel circuit.
+        Args:
+            args[0]: Voltage of power source
+            args[1]: list with voltage of each resistor e.g [22, 18, 44]
+        """
+
+        voltage = float(args[0])
+        resistors = list(args[1])
+
+        output = {}
+
+        for i in range(0, len(resistors)):
+            change = voltage / resistors[i]
+            string = str(resistors[i]) + "Ω resistor"
+            output[string] = str(change) + " amps"
+
+        return output
