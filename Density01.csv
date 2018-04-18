@@ -1,0 +1,629 @@
+material,g/cm3,(lb/ft3)*
+ABS,1.06,66
+"ABS resin, pellet",0.7208325,45
+Acetals,1.42,87
+"Acetic acid, liquid",1.057221,66
+Acetone,0.7849065,49
+Acrylic,1.19,74
+Acrylic resin,0.5286105,33
+"Adipic acid, powder",0.7208325,45
+Agate,2.5 - 2.6,156 - 168
+Agate,2.6,162
+Air-atmospheric pressure,0.001199786,0.0749
+Alabaster carbonate,2.7 - 2.8,168 - 173
+Alabaster sulfate,2.3,143
+Albite,2.6 - 2.65,163 - 165
+"Alcohol, methyl",0.7849065,49
+"Alfalfa, ground",0.256296,16
+"Almonds, shelled",0.480555,30
+Alum powder,0.800925,50
+"Alum, lumpy",0.881,55
+"Alum, pulverized",0.752,47
+Alumina,0.96111,60
+Aluminium oxide,3.95 - 4.1,247 - 256
+Aluminum,2.7,167
+Aluminum Bronze,7.7,481
+Aluminum hydrate,0.288333,18
+Aluminum oxide,0.96111,60
+Aluminum silicate,0.5606475,35
+"Aluminum, powder",0.7208325,45
+"Aluminum, shavings",0.1121295,7
+Amber,1.06 - 1.1,66 - 69
+"Ammonium nitrate, prill",0.7208325,45
+Ammonium sulphate,0.64074,40
+Amphiboles,2.9 - 3.2,180 - 200
+"Andesite, solid",2.77,173
+Anorthite,2.74 - 2.76,171 - 172
+"Antimony, cast",6.7,418
+Apple seed,0.512592,32
+Arsenic,4.7,291
+Artificial Wool,1.5,94
+Asbestos,2.0 - 2.8,125 - 175
+Asbestos fibers,0.32037,20
+"Asbestos, shredded",0.35,22
+"Asbestos, solid",2.45,153
+"Ash, coal, damp",0.7208325,45
+"Ash, coal, dry",0.5606475,35
+Ashes,0.65,41
+"Asphalt, compacted",2.36,147
+"Asphalt, crushed",0.72,45
+"Asphalt, liquid",1.0412025,65
+Aviation fuel (jp-4),0.7849065,49
+Bagasse - exiting the final mill,0.12013875,7.5
+Bagasse,0.1762035,11
+"Bakalite, powder",0.480555,30
+Bakelite,1.36,85
+Baking powder,0.72,45
+Baking soda,1.121295,70
+Ball clay,0.4004625,25
+Balsa Wood,0.13,8.1
+"Barite, crushed",2.89,180
+Barium,3.78,236
+"Bark, wood refuse",0.24,15
+"Bark, wood refuse",0.160185,10
+"Barley, flour",0.4004625,25
+"Barley, ground",0.4004625,25
+"Barley, kernal",0.5606475,35
+"Barley, malted",0.4965735,31
+Barytes,4.5,281
+Basalt,2.4 - 3.1,150 - 190
+"Bauxite, crushed",1.28,80
+"Bauxite, crushed",1.2013875,75
+"Beans, caster",0.576666,36
+"Beans, coffee",0.352407,22
+"Beans, lima",0.7208325,45
+"Beans, navy",0.768888,48
+"Beans, soy",0.7208325,45
+Beeswax,0.96,60 - 61
+"Bentonite, lump",0.4004625,25
+"Bentonite, powder",0.800925,50
+Beryl,2.7,168
+Beryllium,1.85,115
+Bicarbonate of soda,0.6567585,41
+Biotite,2.7 - 3.1,170 - 190
+Bismuth,9.8,607
+"Blood, dry",0.5606475,35
+Boiler scale,2.5,156
+Bone,1.7 - 2.0,106 - 125
+Bone meal,0.8810175,55
+"Bone, pulverized",0.88,55
+Borate of lime,0.800925,50
+Borax,0.800925,50
+"Borax, fine",0.85,53
+Boric acid powder,0.8810175,55
+"Bran, oat",0.4004625,25
+"Bran, wheat",0.2402775,15
+Brass,8.48,529
+Brewers grain,0.4324995,27
+Brewers grits,0.5286105,33
+Brick,1.4 - 2.4,87 - 137
+"Brick, fire",2.3,143
+"Brick, hard",2,125
+"Brick, pressed",2.2,137
+Brickwork in cement,1.8,112
+Brickwork in mortar,1.6,100
+Bronce,8.83,551
+Bronze chips,0.480555,30
+Brown iron ore,5.1,318
+Buckwheat,0.544629,34
+Buckwheat flour,0.64074,40
+Butter,0.87,53
+Butter,0.864999,54
+Buttermilk powder,0.4004625,25
+Cadmium,8.64,539
+Cake mix,0.480555,30
+Calamine,4.1 - 4.5,255 - 280
+Calcium,1.55,97
+Calcium carbide,1.2013875,75
+Calcium carbonate,1.2013875,75
+Calcium oxide,0.4324995,27
+Calcspar,2.6 - 2.8,162 - 175
+Camphor,1,62
+Cane - billetted,0.352407,22
+Cane - knifed,0.288333,18
+Cane - shredded,0.32037,20
+Cane,0.160185,10
+Cane ,0.4004625,25
+Cane ,0.20023125,12.5
+Caoutchouc,0.9 - 1,57 - 62
+Carbide powder,1.60185,100
+Carbon,3.51,219
+Carbon black powder,0.064074,4
+"Carbon black, pellet",0.32037,20
+Carbon tetrachloride,#VALUE!,-
+"Carbon, granulated, activated",0.800925,50
+"Carbon, graphite",0.64074,40
+Cardboard,0.7,43
+Casein powder,0.5606475,35
+Cashew nuts,0.512592,32
+Cast Iron,7.2,449
+Caster beans,0.576666,36
+Cat food,0.32037,20
+"Cellophane, flocking",0.0800925,5
+Celluloid,1.4,87
+"Cellulose acetat, moulded",1.22 - 1.34,76 - 84
+"Cellulose acetat, sheet",1.28 - 1.32,80 - 82
+Cellulose acetate,0.160185,10
+"Cellulose nitrate, celluloid",1.35 - 1.4,84 - 87
+Cellulose,1.48 - 1.53,92 - 95
+"Cellulose, flocking",0.02402775,1.5
+"Cement powder, portland",1.3615725,85
+"Cement, clinker",1.2013875,75
+"Cement, Portland",1.5,94
+"Cement, set",2.7 - 3,170 - 190
+Cereal flake,0.192222,12
+Cerium,6.77,422
+Chalk,1.9 - 2.8,118 - 175
+"Chalk, fine",1.121295,70
+"Chalk, lump",1.3615725,85
+Charcoal,0.2402775,15
+"Charcoal, oak",0.6,35
+"Charcoal, pine",0.3 - 0.4,18 - 28
+Chlorinated polyether,1.4,87
+Chrom oxide,5.21,325
+Chromium,7.1,443
+Chromium ore,2.1624975,135
+"Cinders, coal",0.64074,40
+Cinnabar,8.1,507
+Citric acid,0.8810175,55
+Clay,1.8 - 2.6,112 - 162
+"Clay, attapulgus",0.8810175,55
+"Clay, ball",0.4004625,25
+"Clay, bentonite",0.8169435,51
+"Clay, calcined",1.28148,80
+"Clay, dicalite",0.32037,20
+"Clay, kaoline",0.32037,20
+"Clay, sno-brite",0.2402775,15
+"Clay, whitex",0.2402775,15
+"Clinker, cement",1.28148,80
+"Clinker, coal",1.28148,80
+"Coal, anthracite",1.4 - 1.8,87 - 112
+"Coal, bituminous",1.2 - 1.5,75 - 94
+"Coal, ground",0.64074,40
+"Coal, lump",0.7208325,45
+Cobalt,8.8,549
+"Cocoa, butter",0.9,56
+"Coconut, shredded",0.32037,20
+"Coffee bean, green",0.512592,32
+"Coffee bean, roasted",0.352407,22
+"Coffee, ground",0.32037,20
+Coke,1 - 1.7,62 - 105
+"Coke, calcined, petrol",0.5606475,35
+Concrete,2.24259,140
+"Concrete, dense",2.0 - 2.4,125 - 150
+"Concrete, lightweight",0.45 - 1.0,28 - 62
+"Concrete, medium",1.3 - 1.7,81 - 106
+Constantan,8.89,555
+Copal,1 - 1.15,65 - 71
+Copper,8.79,548
+Copper ore,2.1624975,135
+Copper oxide,3.043515,190
+Cork,0.2 - 0.25,14 - 16
+"Cork, ground",0.0800925,5
+"Cork, linoleum",0.55,34
+Corn bran,0.2082405,13
+"Corn cob, ground",0.5606475,35
+"Corn, cracked",0.5606475,35
+"Corn, flaked",0.096111,6
+"Corn, gern",0.3363885,21
+"Corn, gluten",0.416481,26
+"Corn, grits",0.64074,40
+"Corn, ground",0.480555,30
+"Corn, meal",0.512592,32
+"Corn, starch",0.4004625,25
+"Corn, sugar, liquid",1.409628,88
+"Corn, sugar, powder",0.4965735,31
+"Corn, whole kernel",0.7208325,45
+Corundum,4,247
+Cotton blossoms,0.2402775,15
+Cottonseed,0.352407,22
+Cottonseed hulls,0.192222,12
+Cottonseed meats,0.64074,40
+Cottonseed oil,0.929073,58
+"Cottonseed, meal",0.5606475,35
+CPVC,1.6,97
+Cream powder,0.608703,38
+"Cullett, glass",1.92222,120
+Dextrin,0.800925,50
+Dextrose,0.4965735,31
+Diamond,3 - 3.5,188 - 220
+Diatomacaous earth,0.1762035,11
+Dicalcium phosphate,0.6887955,43
+Diesel fuel,0.832962,52
+"Dirt, dry",1.0412025,65
+Distillars grain,0.480555,30
+Dog food,0.416481,26
+Dolomite,2.8,177
+"Dolomite, lump",1.409628,88
+"Dolomite, powdered",0.7208325,45
+"Down, goose",0.0160185,1
+Duralium,2.8,175
+"Earth, loose",1.2,75
+"Earth, rammed",1.6,100
+Ebonite,1.15,72
+"Ebonite, crushed",1.0412025,65
+Electron,1.8,112
+Emery,4,250
+"Emery, crushed",1.5217575,95
+Epidote,3.2 - 3.5,203 - 218
+Epoxy cast resin,1.11 - 1.4,69 - 87
+Epoxy glass fibre,1.5,94
+Epsom salt,0.64074,40
+Ethanol,0.897036,56
+Ethyl ether,0.704814,44
+Ethylene glycol,1.121295,70
+Expancel microsphere,0.0128148,0.8
+Expanded polystyrene,0.015 - 0.03,0.9 - 1.9
+Farina,0.704814,44
+"Feathers, goose",0.0160185,1
+"Feed pellets, animal",0.512592,32
+Feldspar,2.6 - 2.8,159 - 172
+"Feldspar, ground",1.0412025,65
+Ferrous sulphate,0.800925,50
+"Fertilizer, phosphate",0.96111,60
+Fire brick,1.8 - 2.2,112 - 137
+Fish meal,0.4004625,25
+Flax seed,0.64074,40
+Flint,2.6,164
+"Flour, barley",0.4004625,25
+"Flour, corn",0.480555,30
+"Flour, patent",0.32037,20
+"Flour, wheat",0.480555,30
+Flourospar,1.441665,90
+"Fluff, poly-fim floc",0.02402775,1.5
+Fluorite,3.2,198
+Fly ash,0.5606475,35
+"Froot loops, kellogs",0.128148,8
+Fullers earth,0.5606475,35
+Galena,7.3 - 7.6,460 - 470
+Gallium,5.9,366
+Gamboge,1.2,75
+Garnet,3.2 - 4.3,197 - 268
+Gas carbon,1.9,117
+Gasoline,0.7208325,45
+Gelatin,1.3,79
+"Gelatine, granulated",0.512592,32
+Germanium,5.32,330
+Gilsonite,0.5926845,37
+Glass bead,1.92222,120
+Glass cullett crushed,1.92222,120
+"Glass, common",2.4 - 2.8,150 - 175
+"Glass, flint",2.9 - 5.9,180 - 370
+"Glass, Pyrex",2.21,138
+Glass-wool,0.025,1.6
+Glue,1.3,79
+"Gluten, wheat",0.480555,30
+Glycerine,1.249443,78
+Gneiss,2.69,168
+Gold,19.29,1204
+Golf tees,0.2402775,15
+Granite,2.6 - 2.8,165 - 172
+Graphite,2.3 - 2.7,144 - 170
+"Graphite, ground",0.4004625,25
+Grass seed,0.160185,10
+Gravel,1.2013875,75
+"Grits, corn",0.64074,40
+"Grits, rice",0.672777,42
+Gum arabic,1.3 - 1.4,81 - 87
+Gun powder,0.800925,50
+Gypsum,2.3,144
+"Gypsum, lump",1.441665,90
+"Gypsum, powder",0.96111,60
+Hay,0.0800925,5
+"HDPE, polethylene",0.5606475,35
+Hematite,4.9 - 5.3,306 - 330
+Hominey,0.5926845,37
+Hops,0.5606475,35
+"Hops, spent dry",0.5606475,35
+Hornblende,3,187
+Hydrochloric acid,1.2013875,75
+Ice,0.917,57.2
+"Ice, crushed",0.8810175,55
+"Illmenite, ground",1.92222,120
+Iodine,4.95,309
+Iridium,22.5,1404
+Iron,7.87,488
+Iron chips,2.6430525,165
+Iron ore,2.402775,150
+Iron oxide,2.88333,180
+Ivory,1.8 - 1.9,114 - 120
+"Jet fuel, jp4",0.8169435,51
+Kafir,0.64074,40
+"Kalsomine, powder",0.512592,32
+"Kaoline, crushed",0.32037,20
+Kerosene,0.8169435,51
+Lactose,0.512592,32
+"LDPE, polyethylene",0.5606475,35
+Lead,11.35,708
+Lead Crystal,3.1,192
+Lead oxide,0.480555,30
+"Leather, dry",0.86,54
+Liginite,0.64074,40
+Lima beans dry,0.7208325,45
+"Lime, hydreated",0.4004625,25
+"Lime, pebble",0.8810175,55
+"Lime, quicklime",0.4004625,25
+"Lime, slaked",1.35,84
+"Lime, slaked",0.512592,32
+Limestone,2.7 -2.8,167 - 171
+"Limestone, crushed",1.3615725,85
+"Limestone, dust",1.089258,68
+Linoleum,1.2,74
+Linseed oil,0.929073,58
+"Linseed, kernel",0.4004625,25
+Lithium,0.53,33
+Magnesia,3.2 - 3.6,200 - 225
+Magnesium,1.74,109
+Magnetite,4.9 - 5.2,306 - 324
+"Maize, kernel",0.7208325,45
+Malachite,3.7 - 4.1,231 - 256
+Malt sugar,0.480555,30
+"Malt, dry, whole",0.480555,30
+"Malt, ground, dry",0.32037,20
+"Malt, spent, damp",0.8810175,55
+"Malt, spent, dry",0.160185,10
+Maltodextrin powder,0.5606475,35
+Manganese,7.43,464
+Maple syrup,1.3615725,85
+Marble,2.6 - 2.8,160 - 177
+"Marble, crushed",1.3615725,85
+Meerschaum,1 - 1.3,62 - 80
+Menthol,0.7849065,49
+Metal dust,0.800925,50
+Metals,,
+Methanol,0.7849065,49
+Methyl alcohol,0.7849065,49
+Mica,2.6 - 3.2,165 - 200
+Mica,0.2082405,13
+Milk powder,0.2402775,15
+Milk sugar,0.512592,32
+"Miller, ground",0.5606475,35
+Millet seed,0.768888,48
+Mineral oil,0.9130545,57
+Mineral spirits,0.7849065,49
+Mineral wool quilt,0.05,3.1
+Molybdenum,10.2,636
+"Molybdenum, floc",0.160185,10
+Monosodium phosphate,0.800925,50
+Muriate of potash,1.2334245,77
+Muscovite,2.8 - 3,172 - 187
+Mustard seed,0.7208325,45
+Naphthalene,0.897036,56
+Napthalene flakes,0.7208325,45
+"Navy beans, dry",0.768888,48
+Nickel,8.9,555
+Nitrate of soda,1.089258,68
+Nitric acid,1.505739,94
+Nitrocellulose,0.4004625,25
+Nylon,0.5606475,35
+Nylon-6,1.12 - 1.17,70 - 73
+Nylon-66,1.13 - 1.15,71 - 72
+Oak,0.72,45
+Oat flour,0.480555,30
+Oat hulls,0.128148,8
+Oat meal,0.5606475,35
+Oat middlings,0.5606475,35
+Oats,0.4004625,25
+"Oats, bran",0.4004625,25
+"Oats, ground",0.4004625,25
+"Oats, rolled",0.384444,24
+Ochre,3.5,218
+Octane,0.7208325,45
+"Oil, linseed",0.929073,58
+"Oil, olive",0.9130545,57
+"Oil, petroleum, crude",0.8489805,53
+"Oil, sperm whale",0.9130545,57
+"Oil, transformer",0.8810175,55
+"Oil, turpentine",0.864999,54
+Opal,2.2,137
+Osmium,22.48,1403
+"Oxalic acid, crystals",0.96111,60
+"Oyster shells, ground",0.8489805,53
+Palladium,12,749
+Paper,0.7 - 1.15,44 - 72
+"Paper, shreaded",0.0800925,5
+Paraffin,0.9,55
+Paraffin wax,0.7208325,45
+"PC, polycarbonate",0.544629,34
+Peanut shell refuse,0.064074,4
+"Peanuts, shelled",0.5606475,35
+"Peanuts, unshelled",0.2402775,15
+"Peas, dry",0.7208325,45
+Peat,0.4004625,25
+Peat blocks,0.85,52
+"Perlite, expanded",0.0480555,3
+Petroleum oil,0.8169435,51
+Phenolic cast resin,1.24 - 1.32,77 - 82
+"Phosphate rock, crushed",0.96111,60
+Phosphate sand,1.441665,90
+Phosphorbronce,8.8,549
+Phosphorus,1.82,114
+Pinchbeck,8.65,540
+Pit coal,1.35,84
+Pitch,1.1,67
+Plaster of Paris,0.800925,50
+Plastic pellet,0.544629,34
+Platinum,21.5,1342
+"Ployethylene, pellet",0.544629,34
+"Ployvinyl chloride, powder",0.480555,30
+Polyacrylonitrile,1.16 - 1.18,72 - 74
+Polycarbonates,1.2,75
+Polyethylene pellet,0.5606475,35
+"Polyethylene, PEH",0.91 - 0.97,57 - 61
+Polypropylene,0.9,56
+Polypropylene powder,0.4004625,25
+"Polypropylene, pellet",0.544629,34
+Polystyrene,1.03,64
+"Polystyrene, beads",0.02402775,1.5
+"Polystyrene, pellet",0.64074,40
+Polytetrafluoroethylene,2.17,135
+Polyurethane foam,0.03,1.9
+"Polyvinyl chloride, pellet",0.768888,48
+"Polyvinyl chloride, PVC",1.39,87
+"Popcorn, popped",690.941979,43134
+"Popcorn, shelled",0.7208325,45
+Porcelain,2.3 - 2.5,143 - 156
+Porphyry,2.6 - 2.9,162 - 181
+Potash,0.800925,50
+Potasium chloride,0.032037,2
+Potassium,0.86,54
+Potassium carbonate,0.7208325,45
+Potassium chloride,1.2013875,75
+Potassium nitrate,1.217406,76
+Potassium sulphate,0.672777,42
+Potato flake,0.192222,12
+Potato starch,0.64074,40
+"Pressed wood, pulp board",0.19,12
+Pumice,0.64074,40
+PVC polyvinyl chloride,0.768888,48
+Pyrite,4.9 - 5.1,309 - 318
+Quartz,2.65,165
+"Quartz, sand",1.28148,80
+Radium,5,312
+Rape seed,0.7208325,45
+Red lead,8.6 - 9.1,537 - 568
+Red metal,8.8,549
+Resin,1.07,67
+Rhenium,21.4,1335
+Rhodium,12.3,768
+Rice,0.7208325,45
+Rice bran,0.32037,20
+Rice flour,0.480555,30
+Rice grits,0.672777,42
+Rock salt,2.2,136
+Rock wool,0.22 - 0.39,14 - 24
+Rosin,1.07,67
+"Rubber, ground",0.4004625,25
+"Rubber, hard",1.2,74
+"Rubber, pure gum",0.91 - 0.93,57 - 58
+"Rubber, soft commercial",1.1,69
+Rubidium,1.52,95
+Rye,0.704814,44
+"Rye, flour",0.480555,30
+"Salt, coarse crushed",0.7208325,45
+"Salt, granulated",1.121295,70
+Saltpeter,1.2013875,75
+"Sand with gravel, dry",1.729998,108
+"Sand with gravel, wet",2.0023125,125
+"Sand, damp",1.60185,100
+"Sand, dry",1.4 - 1.6,87 - 100
+"Sand, dry",1.28148,80
+"Sand, loose",1.441665,90
+"Sand, rammed",1.6819425,105
+"Sand, silica",1.5217575,95
+"Sand, water filled",1.92222,120
+"Sand, wet",1.92222,120
+"Sand, wet, packed",2.082405,130
+Sandstone,2.1 - 2.4,134 - 147
+"Sandstone, crushed",1.28148,80
+Sawdust,0.064074,4
+Sea water,1.025184,64
+Selenium,4.4,275
+Semolina,0.5606475,35
+Serpentine,2.5 - 2.65,156 - 165
+Sesame seed,0.4324995,27
+Shellac powder,0.480555,30
+Silica flour,0.5606475,35
+Silica gel,0.480555,30
+Silica sand,1.5217575,95
+"Silica, fused transparent",2.2,138
+"Silica, translucent",2.1,129
+Silicon,2.33,144
+Silver,10.5,655
+Slag,2 - 3.9,125 - 240
+"Slag, furnace",0.96111,60
+Slakes lime,0.512592,32
+Slate,2.6 - 3.3,162 - 205
+"Slate, crushed",1.28148,80
+Snow,0.1,6.2
+Soap powder,0.32037,20
+Soapstone,2.6 - 2.8,162 - 175
+Soda ash,0.480555,30
+Sodium,0.98,61
+Sodium bicarbonate,0.6567585,41
+Sodium chloride,1.121295,70
+"Sodium hydroxide, flake",0.7528695,47
+Sodium nitrate,1.089258,68
+Sodium sulphate,1.28148,80
+Soot,1.6 - 1.7,100 - 106
+Sorghum seed,0.672777,42
+Soybean flour,0.4324995,27
+Soybean hulls,0.096111,6
+Soybean meal,0.576666,36
+"Soybean, flakes",0.288333,18
+"Soybean, whole",0.7528695,47
+"Soybeean, cracked",0.5606475,35
+Spelt flour,0.4004625,25
+Spermaceti,0.95,59
+Starch,1.5,95
+Starch powder,0.4004625,25
+Steatite,2.6 - 2.7,162 - 168
+Steel,7.82,488
+"Steel, chips",2.402775,150
+Stone,2.3 - 2.8,144 - 175
+Sucrose - amorphous,1.505739,94
+Sucrose - crystal,1.5858315,99
+Sugar,1.6,99
+"Sugar, brown",0.7208325,45
+"Sugar, dextrose, powder",0.800925,50
+"Sugar, granulated",0.8489805,53
+"Sugar, milk",0.512592,32
+"Sugar, powdered",0.800925,50
+"Sugar, raw",0.8810175,55
+"Sulfur, cryst.",2,125
+Sulfuric acid,1.794072,112
+"Sulphur, crushed",0.8810175,55
+Sunflower seed,0.576666,36
+Talc,2.7 - 2.8,168 - 174
+Talcum powder,0.064074,4
+"Tallow, beef",0.95,59
+"Tallow, mutton",0.95,59
+Tantalum,16.6,1036
+Tar,1.05,66
+Tar,1.153332,72
+Tea leaves,0.192222,12
+Tellurium,6.25,389
+Terephalic acid powder,0.7208325,45
+Thorium,11.7,730
+Timber,,
+Timothy seed,0.576666,36
+Tin,7.28,454
+Tin oxide,1.60185,100
+Titanium,4.5,281
+Titanium dioxide,0.64074,40
+"Tobacco, flake",0.032037,2
+Topaz,3.5 - 3.6,219 - 223
+Toulene,0.864999,54
+Tourmaline,3 - 3.2,190 - 200
+Transmission oil,0.864999,54
+Trisodium phosphate,0.800925,50
+Tungsten,19.2,1198
+Uranium,19.1,1192
+Urea formaldehyde foam,0.08,5
+"Urea, prill",0.544629,34
+Vanadium,6.1,381
+Vermiculite ore,1.28148,80
+"Vermiculite, expanded",0.2723145,17
+Walnut meats,0.4004625,25
+"Walnut shells, ground",0.64074,40
+Water,0.993147,62
+Wax,0.2402775,15
+"Wax, sealing",1.8,112
+Wheat bran,0.192222,12
+Wheat gluten,0.480555,30
+"Wheat, craked",0.5606475,35
+"Wheat, flaked",0.1121295,7
+"Wheat, flour",0.480555,30
+"Wheat, ground",0.64074,40
+"Wheat, whole kernel",0.7208325,45
+Whey powder,0.5606475,35
+White metal,7.5 - 10,468 - 624
+Wood chips,0.32037,20
+Wood flour,0.2402775,15
+Wood shavings,0.0480555,3
+Wood wool slab,0.5 - 0.8,31 - 50
+Xanthum gum,0.768888,48
+Zinc,7.12,444
+Zinc ore,2.0023125,125
+Zinc oxide,0.160185,10
+"Zinc, calcined, crushed",1.121295,70

@@ -49,13 +49,13 @@ class MainGUI(QMainWindow):
         # Set window background color
         self.setAutoFillBackground(True)
         p = self.palette()
-        p.setColor(self.backgroundRole(), QColor('#444039'))
+        p.setColor(self.backgroundRole(), QColor('white'))
         self.setPalette(p)
         if self.screen_width < 3000:
             self.setStyleSheet("""
                 QPushButton[menuButton = "true"]{
-                    border: 1px solid #293744;
-                    border-radius: 5px;
+                    border: 1px solid #ff9400;
+                    border-radius: 10px;
                     background-color: #ff9400;
                     font-family: "Helvetica";
                     font-size: 18px;
@@ -63,8 +63,8 @@ class MainGUI(QMainWindow):
                 }
                 
                 QPushButton[menuButton = "false"] {
-                    border: 1px solid #293744;
-                    border-radius: 5px;
+                    border: 1px solid #ff9400;
+                    border-radius: 8px;
                     background-color: #ff9400;
                     font-family: "Helvetica";
                     font-size: 18px;          
@@ -95,8 +95,8 @@ class MainGUI(QMainWindow):
         else:
             self.setStyleSheet("""
                 QPushButton[menuButton = "true"]{
-                    border: 1px solid #293744;
-                    border-radius: 5px;
+                    border: 1px solid #ff9400;
+                    border-radius: 10px;
                     background-color: #ff9400;
                     min-width: 50px;
                     min-height: 100px;
@@ -105,8 +105,8 @@ class MainGUI(QMainWindow):
                 }
 
                 QPushButton[menuButton = "false"] {
-                    border: 1px solid #293744;
-                    border-radius: 5px;
+                    border: 1px solid #ff9400;
+                    border-radius: 8px;
                     background-color: #ff9400;
                     min-width: 50px;
                     min-height: 80px;
@@ -175,6 +175,7 @@ class MainGUI(QMainWindow):
         self.menu_fav_btn.setProperty("menuButton", True)
 
         self.initial_layout = QVBoxLayout()
+        self.initial_layout.setStretch(300, 750)
         self.initial_layout.addWidget(self.menu_math_btn)
         self.initial_layout.addWidget(self.menu_phys_btn)
         self.initial_layout.addWidget(self.menu_chem_btn)
@@ -694,7 +695,7 @@ class MainGUI(QMainWindow):
 
         # create inputs, buttons, and outputs
         title = QLabel('Molar Mass Calculator')
-        label_input = QLabel('Forumla')
+        label_input = QLabel('Formula')
         form_input = QLineEdit()
         calc_btn = QPushButton('Calculate')
         calc_btn.setProperty("menuButton", False)
