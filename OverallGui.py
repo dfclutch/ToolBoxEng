@@ -5,6 +5,7 @@ from PyQt5.Qt import  QColor
 from PyQt5.QtCore import *
 import MathToolWidgets
 import PhysicsToolWidgets
+import ChemistryToolWidgets
 import time
 import csv
 
@@ -152,6 +153,8 @@ class MainGUI(QMainWindow):
         self.stacked_layout.addWidget(self.resband_widget)
         self.create_dense_widget()
         self.stacked_layout.addWidget(self.dense_widget)
+        self.create_molar_mass_widget()
+        self.stacked_layout.addWidget(self.molar_mass_widget)
 
         self.stacked_layout.setCurrentIndex(0)
 
@@ -421,12 +424,22 @@ class MainGUI(QMainWindow):
         grid.addWidget(calc_btn, 4,1)
         grid.addWidget(result_label, 5,0)
         grid.addWidget(self.integral_output, 5,1)
+        fav_btn = QPushButton('Add To Favorites')
+        fav_btn.setProperty("menuButton", True)
+
+        # build favorites button for widget
+        fav_menu_btn = QPushButton('Integral')
+        fav_menu_btn.setProperty("menuButton", True)
+        fav_menu_btn.clicked.connect(lambda: self.ButtonHandler(self.integral_widget_stack_position))
+
+        fav_btn.clicked.connect(lambda: self.favButton(fav_menu_btn))
 
         # create back button
         back_btn = QPushButton('Back', self)
         back_btn.clicked.connect(lambda: self.backButton(self.math_menu_stack_position))  # update menu to return to
         back_btn.setProperty("menuButton", True)
-        grid.addWidget(back_btn, 6,0,1,2)
+        grid.addWidget(fav_btn, 6, 0,1,1)
+        grid.addWidget(back_btn, 6,1,1,1)
 
         # create stack object
         self.integral_widget.setLayout(grid)
@@ -635,7 +648,6 @@ class MainGUI(QMainWindow):
         except:
             self.dense_out_metr.setText("Something's Not Right!?")
 
-
     """
         CHEMISTRY MENU, HELPER CLASSES, AND WIDGETS
     """
@@ -643,16 +655,25 @@ class MainGUI(QMainWindow):
     def create_chem_menu(self):
         """chem Submenu"""
         self.chem_menu_stack_position = 3
-        # buttons for physics subwidgets
+
+        # buttons for chem subwidgets
         back_btn = QPushButton('Back', self)
         back_btn.clicked.connect(lambda: self.backButton(self.main_menu_stack_position))
         back_btn.setProperty("menuButton", True)
         label = QLabel('Chemistry')
+        self.widget_btn_molar = QPushButton('Molar Mass')
+        self.widget_btn_molar.setProperty("menuButton", False)
+        self.widget_btn_molar.clicked.connect(self.ChemMenuButtonClickHandler)
+
 
         # create layout
         self.chem_menu_layout = QVBoxLayout()
+        self.chem_widgets_layout = QGridLayout()
+        self.chem_widgets_layout.addWidget(self.widget_btn_molar, 0, 0)
         self.chem_menu_layout.addWidget(label)
+        self.chem_menu_layout.addLayout(self.chem_widgets_layout)
         self.chem_menu_layout.addWidget(back_btn)
+
 
         # create stack object
         self.chem_menu = QWidget()
@@ -661,8 +682,64 @@ class MainGUI(QMainWindow):
 
     def ChemMenuButtonClickHandler(self):
         """Handles chemistry submenu button clicks"""
-        if True: # self.sender() == self.widget_btn:
-            pass
+        if  self.sender() == self.widget_btn_molar:
+            self.stacked_layout.setCurrentIndex(self.molar_mass_widget_stack_position)
+
+    def create_molar_mass_widget(self):
+        """Widget for ...."""
+        self.molar_mass_widget_stack_position = 10  # set stack position, reference attached doc
+
+        # build stack widget
+        self.molar_mass_widget = QWidget()
+
+        # create inputs, buttons, and outputs
+        title = QLabel('Molar Mass Calculator')
+        label_input = QLabel('Forumla')
+        form_input = QLineEdit()
+        calc_btn = QPushButton('Calculate')
+        calc_btn.setProperty("menuButton", False)
+        calc_btn.clicked.connect(lambda: self.molar_mass_calculate(form_input.text()))
+        label_output = QLabel('Molar Mass')
+        self.molar_mass_out = QLineEdit()
+
+        # setup gridlayout
+        grid = QGridLayout()
+        grid.setSpacing(10)
+
+        # add widgets to grid
+        grid.addWidget(title, 0, 0)
+        grid.addWidget(label_input, 1, 0)
+        grid.addWidget(form_input, 1, 1)
+        grid.addWidget(calc_btn, 2, 1)
+        grid.addWidget(label_output, 3, 0)
+        grid.addWidget(self.molar_mass_out, 3, 1)
+
+        # create back button
+        back_btn = QPushButton('Back', self)
+        back_btn.clicked.connect(lambda: self.backButton(self.chem_menu_stack_position))  # update menu to return to
+        back_btn.setProperty("menuButton", True)
+        fav_btn = QPushButton('Add To Favorites')
+        fav_btn.setProperty("menuButton", True)
+
+        # build favorites button for widget
+        fav_menu_btn = QPushButton('Molar Mass')
+        fav_menu_btn.setProperty("menuButton", True)
+        fav_menu_btn.clicked.connect(lambda: self.ButtonHandler(self.molar_mass_widget_stack_position))
+
+        fav_btn.clicked.connect(lambda: self.favButton(fav_menu_btn))
+        grid.addWidget(fav_btn, 4, 0)
+        grid.addWidget(back_btn, 4, 1)
+
+        # create stack object
+        self.molar_mass_widget.setLayout(grid)
+        self.show()
+
+    def molar_mass_calculate(self, formula):
+        try:
+            result = ChemistryToolWidgets.AtomicMass.calc(str(formula))
+            self.molar_mass_out.setText(str(result))
+        except:
+            self.molar_mass_out.setText("Something's Not Right!?")
 
     """
         FAVORITES MENU, HELPER CLASSES, AND WIDGETS
