@@ -12,6 +12,7 @@ class Add(ToolWidget):
     """
         Add class that implements adding two numbers together
     """
+    @staticmethod
     def calc(*args):
         """"
         Calculates x + y
@@ -29,7 +30,7 @@ class Add(ToolWidget):
 class Power(ToolWidget):
     """"" Power class that implements a power function.
     """
-
+    @staticmethod
     def calc(*args):
         """""
         Calculates x^y
@@ -49,6 +50,7 @@ class CircleArea(ToolWidget):
     """"" Tool Widget that implements a function that calculates the area of a circle.
     """
 
+    @staticmethod
     def calc(*args):
         """""
                 Calculates area of a circle
@@ -62,7 +64,7 @@ class CircleArea(ToolWidget):
 
 
 class Integrate(ToolWidget):
-
+    @staticmethod
     def calc(*args):
         """""
         Calculates the definite integral of a function with respect to x.
@@ -89,7 +91,7 @@ class Integrate(ToolWidget):
 
 
 class Derivative(ToolWidget):
-
+    @staticmethod
     def calc(*args):
         """""
         Calculates the value of the first derivative of a function with respect to x.
