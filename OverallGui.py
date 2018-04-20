@@ -15,17 +15,10 @@ class MainGUI(QMainWindow):
     def __init__(self):
         super().__init__()
         self.title = 'Engineering Toolbox'
-        self.screen_width = QDesktopWidget().availableGeometry().width()
-        if self.screen_width < 3000:
-            self.left = 100 / 2
-            self.top = 100 / 2
-            self.width = 900 / 2
-            self.height = 750 / 2
-        else:
-            self.left = 100
-            self.top = 100
-            self.width = 900
-            self.height = 750
+        self.left = 100
+        self.top = 100
+        self.width = 900
+        self.height = 750
 
         self.initUI()
         self.stacked_layout = QStackedLayout()
@@ -51,85 +44,67 @@ class MainGUI(QMainWindow):
         p = self.palette()
         p.setColor(self.backgroundRole(), QColor('white'))
         self.setPalette(p)
-        if self.screen_width < 3000:
-            self.setStyleSheet("""
-                QPushButton[menuButton = "true"]{
-                    border: 1px solid #ff9400;
-                    border-radius: 10px;
-                    background-color: #ff9400;
-                    font-family: "Helvetica";
-                    font-size: 18px;
-                    min-height: 40px;
-                }
-                
-                QPushButton[menuButton = "false"] {
-                    border: 1px solid #ff9400;
-                    border-radius: 8px;
-                    background-color: #ff9400;
-                    font-family: "Helvetica";
-                    font-size: 18px;          
-                    min-height: 30px; 
-                }
-                
-                QLabel {   
-                    font-family: "Helvetica";
-                    font-size: 14px;    
-                    color: white;        
-                }
-                
-                QWidget {
-                    padding: 5px;
-                }
-                
-                QLineEdit {
-                    font-size: 14px;
-                    font-family: "Helvetica";
-                    min-height: 18px;
-                    max-width: 340px;
-                }   
-                
-                QComboBox {
-                    max-width: 340px;
-                }
-                                        """)
-        else:
-            self.setStyleSheet("""
-                QPushButton[menuButton = "true"]{
-                    border: 1px solid #ff9400;
-                    border-radius: 10px;
-                    background-color: #ff9400;
-                    min-width: 50px;
-                    min-height: 100px;
-                    font-family: "Helvetica";
-                    font-size: 48px;
-                }
 
-                QPushButton[menuButton = "false"] {
-                    border: 1px solid #ff9400;
-                    border-radius: 8px;
-                    background-color: #ff9400;
-                    min-width: 50px;
-                    min-height: 80px;
-                    font-family: "Helvetica";
-                    font-size: 36px;           
-                }
+        self.setStyleSheet("""
+            QPushButton[menuButton = "true"]{
+                border: none;
+                border-radius: 10px;
+                background-color: #3b77d6;
+                font-family: "Helvetica";
+                font-size: 34px;
+                color: white;
+                padding: 10px;
+                min-height: 60px;
+                align: center;
+            }
 
+            QPushButton[menuButton = "false"] {
+                border: none;
+                border-radius: 8px;
+                background-color: #3b77d6;
+                font-family: "Helvetica";
+                font-size: 28px;
+                color: white;
+                padding: 8px;      
+                min-width: 180px;
+                min-height: 180px;
+                     
+            }
+            
+            QPushButton[mainMenuButton = "true"]{
+                border: none;
+                border-radius: 10px;
+                background-color: #3b77d6;
+                font-family: "Helvetica";
+                font-size: 34px;
+                color: white;
+                padding: 10px;
+                min-height: 100px;
+            }
+            
+            QPushButton:hover {
+                background-color: #2f5faa;
+            }
+            
+            QPushButton:pressed {
+                background-color: #244882;
+            }
 
-                QLabel {   
-                    font-family: "Helvetica";
-                    font-size: 36px;    
-                    color: white;        
-                }
+            QLabel {   
+                font-family: "Helvetica";
+                font-size: 28px;    
+                color: black;        
+            }
 
-                QWidget {
-                    padding: 20px;
-                }
+            QWidget {
+                padding: 10px;
+            }
 
-                QLineEdit {
-                    font-size: 32px;
-                    font-family: "Helvetica";
-                }   
-                                        """)
+            QLineEdit {
+                font-size: 28px;
+                font-family: "Helvetica";
+            }   
+                                    """)
 
         self.show()
 
@@ -165,17 +140,17 @@ class MainGUI(QMainWindow):
     def create_main_menu_layout(self):
         """Creates main menu"""
         self.main_menu_stack_position = 0
+
         self.menu_math_btn = QPushButton('Math', self)
-        self.menu_math_btn.setProperty("menuButton", True)
+        self.menu_math_btn.setProperty("mainMenuButton", True)
         self.menu_phys_btn = QPushButton('Physics', self)
-        self.menu_phys_btn.setProperty("menuButton", True)
+        self.menu_phys_btn.setProperty("mainMenuButton", True)
         self.menu_chem_btn = QPushButton('Chemistry', self)
-        self.menu_chem_btn.setProperty("menuButton", True)
+        self.menu_chem_btn.setProperty("mainMenuButton", True)
         self.menu_fav_btn = QPushButton('Favorites', self)
-        self.menu_fav_btn.setProperty("menuButton", True)
+        self.menu_fav_btn.setProperty("mainMenuButton", True)
 
         self.initial_layout = QVBoxLayout()
-        self.initial_layout.setStretch(300, 750)
         self.initial_layout.addWidget(self.menu_math_btn)
         self.initial_layout.addWidget(self.menu_phys_btn)
         self.initial_layout.addWidget(self.menu_chem_btn)
@@ -187,6 +162,8 @@ class MainGUI(QMainWindow):
         self.menu_fav_btn.clicked.connect(self.MainMenuButtonClickHandler)
 
         self.main_menu_widget = QWidget()
+        # TODO: FIX THE FUCKING GUI SO IT DOESN"T LOOK LIKE SHIT
+
         self.main_menu_widget.setLayout(self.initial_layout)
         self.show()
 
@@ -219,7 +196,7 @@ class MainGUI(QMainWindow):
         self.widget_btn_power = QPushButton('Power', self)
         self.widget_btn_power.clicked.connect(self.MathMenuButtonClickHandler)
         self.widget_btn_power.setProperty("menuButton", False)
-        self.widget_btn_integral = QPushButton('Integral', self)
+        self.widget_btn_integral = QPushButton('Definite\nIntegral', self)
         self.widget_btn_integral.clicked.connect(self.MathMenuButtonClickHandler)
         self.widget_btn_integral.setProperty("menuButton", False)
         self.widget_btn_derivative = QPushButton('Derivative', self)
@@ -276,7 +253,7 @@ class MainGUI(QMainWindow):
         input_two = QLineEdit()
         self.add_output = QLineEdit()
         calc_btn = QPushButton('Calculate', self)
-        calc_btn.setProperty("menuButton", False)
+        calc_btn.setProperty("menuButton", True)
         calc_btn.clicked.connect(lambda: self.add_widget_calculate(input_one, input_two))
         back_btn = QPushButton('Back', self)
         back_btn.setProperty("menuButton", True)
@@ -339,7 +316,7 @@ class MainGUI(QMainWindow):
         input_two = QLineEdit()
         self.power_output = QLineEdit()
         calc_btn = QPushButton('Calculate', self)
-        calc_btn.setProperty("menuButton", False)
+        calc_btn.setProperty("menuButton", True)
         calc_btn.clicked.connect(lambda: self.power_widget_calculate(input_one, input_two))
         result = QLabel('Result')
         fav_btn = QPushButton('Add To Favorites')
@@ -409,7 +386,7 @@ class MainGUI(QMainWindow):
         self.integral_output = QLineEdit()
         calc_btn = QPushButton('Calculate')
         calc_btn.clicked.connect(lambda: self.integral_widget_calculate(func_input, upper_input, lower_input))
-        calc_btn.setProperty("menuButton", False)
+        calc_btn.setProperty("menuButton", True)
 
         # setup gridlayout
         grid = QGridLayout()
@@ -471,19 +448,29 @@ class MainGUI(QMainWindow):
         back_btn.clicked.connect(lambda: self.backButton(self.main_menu_stack_position))
         back_btn.setProperty("menuButton", True)
         label = QLabel('Physics')
-        self.widget_btn_resband = QPushButton('Resistor Bands')
+        self.widget_btn_resband = QPushButton('Resistor \nBands')
         self.widget_btn_resband.setProperty("menuButton", False)
         self.widget_btn_resband.clicked.connect(self.PhysMenuButtonClickHandler)
-        self.widget_btn_dense = QPushButton('Material Densities')
+        self.widget_btn_dense = QPushButton('Material \nDensities')
         self.widget_btn_dense.setProperty("menuButton", False)
         self.widget_btn_dense.clicked.connect(self.PhysMenuButtonClickHandler)
+        self.widget_btn_fall = QPushButton('Falling')
+        self.widget_btn_fall.setProperty("menuButton", False)
+        # TODO: Implement falling widget
+        self.widget_btn_NAME = QPushButton('Placeholder')
+        self.widget_btn_NAME.setProperty("menuButton", False)
 
         # create layout
-        self.phys_menu_layout = QGridLayout()
-        self.phys_menu_layout.addWidget(label, 0, 0, 1, 1)
-        self.phys_menu_layout.addWidget(self.widget_btn_resband, 1, 0, 1, 1)
-        self.phys_menu_layout.addWidget(self.widget_btn_dense, 1, 1, 1, 1)
-        self.phys_menu_layout.addWidget(back_btn, 2, 0, 1, 2)
+        self.phys_menu_layout = QVBoxLayout()
+        self.phys_menu_layout.addWidget(label)
+        self.phys_widget_layout = QGridLayout()
+        self.phys_widget_layout.addWidget(self.widget_btn_resband, 0, 0, 1, 1)
+        self.phys_widget_layout.addWidget(self.widget_btn_dense, 0, 1, 1, 1)
+        self.phys_widget_layout.addWidget(self.widget_btn_fall, 0, 2, 1, 1)
+        self.phys_widget_layout.addWidget(self.widget_btn_NAME, 0, 3, 1, 1)
+
+        self.phys_menu_layout.addLayout(self.phys_widget_layout)
+        self.phys_menu_layout.addWidget(back_btn)
 
         # create stack object
         self.phys_menu = QWidget()
@@ -523,7 +510,7 @@ class MainGUI(QMainWindow):
         band_tol.addItems(['Brown  ±1%', 'Red   ±2%', 'Green ±0.5%', 'Blue ±0.25%', 'Violet ±0.1%', 'Gray ±0.05%',
                            'Gold ±1%', 'Silver ±10%'])
         calc_btn = QPushButton('Calculate')
-        calc_btn.setProperty("menuButton", False)
+        calc_btn.setProperty("menuButton", True)
         calc_btn.clicked.connect(lambda: self.resband_calculate(band_one, band_two, band_mult, band_tol))
         self.resband_output = QLineEdit()
 
@@ -602,7 +589,7 @@ class MainGUI(QMainWindow):
         self.dense_out_metr = QLineEdit()
         self.dense_out_imp = QLineEdit()
         calc_btn = QPushButton('Calculate')
-        calc_btn.setProperty("menuButton", False)
+        calc_btn.setProperty("menuButton", True)
         calc_btn.clicked.connect(lambda: self.dense_calculate(str(mat.currentText())))
 
         # setup gridlayout
@@ -698,7 +685,7 @@ class MainGUI(QMainWindow):
         label_input = QLabel('Formula')
         form_input = QLineEdit()
         calc_btn = QPushButton('Calculate')
-        calc_btn.setProperty("menuButton", False)
+        calc_btn.setProperty("menuButton", True)
         calc_btn.clicked.connect(lambda: self.molar_mass_calculate(form_input.text()))
         label_output = QLabel('Molar Mass')
         self.molar_mass_out = QLineEdit()
@@ -790,17 +777,10 @@ class MainGUI(QMainWindow):
 if __name__ == '__main__':
     app = QApplication(sys.argv)
 
-    screen_width = QDesktopWidget().availableGeometry().width()
     left = 100
     top = 100
     width = 900
     height = 750
-
-    if screen_width < 3000:
-        left /= 2
-        top /= 2
-        width /= 2
-        height /= 2
 
     splash_pix = QPixmap('splash_screen.png')
     scaled = splash_pix.scaled(width, height, Qt.IgnoreAspectRatio, Qt.FastTransformation)
