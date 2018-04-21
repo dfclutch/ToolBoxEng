@@ -1,7 +1,7 @@
 import sys
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
-from PyQt5.Qt import  QColor
+from PyQt5.Qt import QColor
 from PyQt5.QtCore import *
 import MathToolWidgets
 import PhysicsToolWidgets
@@ -33,12 +33,11 @@ class MainGUI(QMainWindow):
         self.setWindowIcon(QIcon('CornerIcon.png'))
 
         self.addPages()
-    
+
     def initUI(self):
         self.setWindowTitle(self.title)
         self.setGeometry(self.left, self.top, self.width, self.height)
 
- 
         # Set window background color
         self.setAutoFillBackground(True)
         p = self.palette()
@@ -68,9 +67,9 @@ class MainGUI(QMainWindow):
                 padding: 8px;      
                 min-width: 180px;
                 min-height: 180px;
-                     
+
             }
-            
+
             QPushButton[mainMenuButton = "true"]{
                 border: none;
                 border-radius: 10px;
@@ -81,15 +80,32 @@ class MainGUI(QMainWindow):
                 padding: 10px;
                 min-height: 100px;
             }
-            
+
             QPushButton:hover {
                 background-color: #2f5faa;
             }
-            
+
             QPushButton:pressed {
                 background-color: #244882;
             }
-
+            
+            QMenuBar {
+                border: none;
+                background-color: #3b77d6;
+                font-family: "Helvetica";
+                font-size: 34px;
+                color: white;
+                min-height: 60px;
+            }
+            
+            QMenuBar::item::selected {
+                background-color: #2f5faa;
+            }
+            
+            QMenuBar::item::pressed {
+                background-color: #244882;
+            }
+            
             QLabel {   
                 font-family: "Helvetica";
                 font-size: 28px;    
@@ -139,48 +155,56 @@ class MainGUI(QMainWindow):
 
     def create_main_menu_layout(self):
         """Creates main menu"""
+        # general properties #
         self.main_menu_stack_position = 0
-
-        self.menu_math_btn = QPushButton('Math', self)
-        self.menu_math_btn.setProperty("mainMenuButton", True)
-        self.menu_phys_btn = QPushButton('Physics', self)
-        self.menu_phys_btn.setProperty("mainMenuButton", True)
-        self.menu_chem_btn = QPushButton('Chemistry', self)
-        self.menu_chem_btn.setProperty("mainMenuButton", True)
-        self.menu_fav_btn = QPushButton('Favorites', self)
-        self.menu_fav_btn.setProperty("mainMenuButton", True)
-
-        self.initial_layout = QHBoxLayout()
-        self.initial_layout.addWidget(self.menu_math_btn)
-        self.initial_layout.addWidget(self.menu_phys_btn)
-        self.initial_layout.addWidget(self.menu_chem_btn)
-        self.initial_layout.addWidget(self.menu_fav_btn)
-
-        self.menu_math_btn.clicked.connect(self.MainMenuButtonClickHandler)
-        self.menu_phys_btn.clicked.connect(self.MainMenuButtonClickHandler)
-        self.menu_chem_btn.clicked.connect(self.MainMenuButtonClickHandler)
-        self.menu_fav_btn.clicked.connect(self.MainMenuButtonClickHandler)
-
         self.main_menu_widget = QWidget()
-        # TODO: FIX THE FUCKING GUI SO IT DOESN"T LOOK LIKE SHIT
 
-        self.main_menu_widget.setLayout(self.initial_layout)
+        # create menus #
+        menu_bar = self.menuBar()
+        math_menu = menu_bar.addMenu('Math')
+        phys_menu = menu_bar.addMenu('Physics')
+        chem_menu = menu_bar.addMenu('Chemistry')
+        fav_menu = menu_bar.addMenu('Favorites')
+
+        # create add menu #
+        math_menu_action = QAction('Menu', self)
+        math_menu_action.triggered.connect(lambda: self.ButtonHandler(self.math_menu_stack_position))
+        math_menu.addAction(math_menu_action)
+        add_action = QAction('Add', self)
+        add_action.triggered.connect(lambda: self.ButtonHandler(self.add_widget_stack_position))
+        math_menu.addAction(add_action)
+        power_action = QAction('Power', self)
+        power_action.triggered.connect(lambda: self.ButtonHandler(self.power_widget_stack_position))
+        math_menu.addAction(power_action)
+        integral_action = QAction('Integral', self)
+        integral_action.triggered.connect(lambda: self.ButtonHandler(self.integral_widget_stack_position))
+        math_menu.addAction(integral_action)
+
+        # create physics menu #
+        phys_menu_action = QAction('Menu', self)
+        phys_menu_action.triggered.connect(lambda: self.ButtonHandler(self.phys_menu_stack_position))
+        phys_menu.addAction(phys_menu_action)
+        resband_action = QAction('Resistor Bands', self)
+        resband_action.triggered.connect(lambda: self.ButtonHandler(self.resband_widget_stack_position))
+        phys_menu.addAction(resband_action)
+        dense_action = QAction('Material Density', self)
+        dense_action.triggered.connect(lambda: self.ButtonHandler(self.dense_widget_stack_position))
+        phys_menu.addAction(dense_action)
+
+        # create chem menu #
+        chem_menu_action = QAction('Menu', self)
+        chem_menu_action.triggered.connect(lambda: self.ButtonHandler(self.chem_menu_stack_position))
+        chem_menu.addAction(chem_menu_action)
+        molar_action = QAction('Molar Mass', self)
+        molar_action.triggered.connect(lambda: self.ButtonHandler(self.molar_mass_widget_stack_position))
+        chem_menu.addAction(molar_action)
+
+        # create favorites menu #
+        fav_menu_action = QAction('Menu', self)
+        fav_menu_action.triggered.connect(lambda: self.ButtonHandler(self.fav_menu_stack_position))
+        fav_menu.addAction(fav_menu_action)
+
         self.show()
-
-    def MainMenuButtonClickHandler(self):
-        """Handles main menu button clicks, directs user to selected submenu"""
-        if self.sender() == self.menu_math_btn:
-            self.stacked_layout.setCurrentIndex(self.math_menu_stack_position)
-
-        elif self.sender() == self.menu_phys_btn:
-            self.stacked_layout.setCurrentIndex(self.phys_menu_stack_position)
-
-        elif self.sender() == self.menu_chem_btn:
-            self.stacked_layout.setCurrentIndex(self.chem_menu_stack_position)
-
-        elif self.sender() == self.menu_fav_btn:
-            self.stacked_layout.setCurrentIndex(self.fav_menu_stack_position)
-
     """
         MATH MENU, HELPER CLASSES, AND ASSOCIATED WIDGETS
     """
@@ -189,15 +213,14 @@ class MainGUI(QMainWindow):
         """Math Submenu"""
         self.math_menu_stack_position = 1
         # build buttons and labels
-        label = QLabel('Math Menu')
         self.widget_btn_add = QPushButton('Add', self)
-        self.widget_btn_add.clicked.connect(self.MathMenuButtonClickHandler)
+        self.widget_btn_add.clicked.connect(lambda: self.ButtonHandler(self.add_widget_stack_position))
         self.widget_btn_add.setProperty("menuButton", False)
         self.widget_btn_power = QPushButton('Power', self)
-        self.widget_btn_power.clicked.connect(self.MathMenuButtonClickHandler)
+        self.widget_btn_power.clicked.connect(lambda: self.ButtonHandler(self.power_widget_stack_position))
         self.widget_btn_power.setProperty("menuButton", False)
         self.widget_btn_integral = QPushButton('Definite\nIntegral', self)
-        self.widget_btn_integral.clicked.connect(self.MathMenuButtonClickHandler)
+        self.widget_btn_integral.clicked.connect(lambda: self.ButtonHandler(self.integral_widget_stack_position))
         self.widget_btn_integral.setProperty("menuButton", False)
         self.widget_btn_derivative = QPushButton('Derivative', self)
         self.widget_btn_derivative.setProperty("menuButton", False)
@@ -206,13 +229,12 @@ class MainGUI(QMainWindow):
         self.widget_btn_determinant = QPushButton('Determinant', self)
         self.widget_btn_determinant.setProperty("menuButton", False)
         back_btn = QPushButton('Back', self)
-        back_btn.clicked.connect(lambda: self.backButton(self.main_menu_stack_position))
+        back_btn.clicked.connect(lambda: self.ButtonHandler(self.main_menu_stack_position))
         back_btn.setProperty("menuButton", True)
 
         # create layout
         self.math_menu_layout = QVBoxLayout()
         self.math_menu_grid_layout = QGridLayout()
-        self.math_menu_grid_layout.addWidget(label, 0 , 0, 1, 1)
         self.math_menu_grid_layout.addWidget(self.widget_btn_add, 1, 0)
         self.math_menu_grid_layout.addWidget(self.widget_btn_power, 1, 1)
         self.math_menu_grid_layout.addWidget(self.widget_btn_integral, 1, 2)
@@ -227,15 +249,6 @@ class MainGUI(QMainWindow):
         self.math_menu = QWidget()
         self.math_menu.setLayout(self.math_menu_layout)
         self.show()
-
-    def MathMenuButtonClickHandler(self):
-        """Handles math submenu button clicks"""
-        if self.sender() == self.widget_btn_add:
-            self.stacked_layout.setCurrentIndex(self.add_widget_stack_position)
-        elif self.sender() == self.widget_btn_power:
-            self.stacked_layout.setCurrentIndex(self.power_widget_stack_position)
-        elif self.sender() == self.widget_btn_integral:
-            self.stacked_layout.setCurrentIndex(self.integral_widget_stack_position)
 
     def create_add_widget(self):
         """Widget for adding numbers"""
@@ -257,7 +270,7 @@ class MainGUI(QMainWindow):
         calc_btn.clicked.connect(lambda: self.add_widget_calculate(input_one, input_two))
         back_btn = QPushButton('Back', self)
         back_btn.setProperty("menuButton", True)
-        back_btn.clicked.connect(lambda: self.backButton(self.math_menu_stack_position))
+        back_btn.clicked.connect(lambda: self.ButtonHandler(self.math_menu_stack_position))
         fav_btn = QPushButton('Add To Favorites')
         fav_btn.setProperty("menuButton", True)
 
@@ -267,7 +280,6 @@ class MainGUI(QMainWindow):
         fav_menu_btn.clicked.connect(lambda: self.ButtonHandler(self.add_widget_stack_position))
 
         fav_btn.clicked.connect(lambda: self.favButton(fav_menu_btn))
-
 
         # setup gridlayout
         grid = QGridLayout()
@@ -309,7 +321,6 @@ class MainGUI(QMainWindow):
         self.power_widget = QWidget()
 
         # create inputs, buttons, and outputs
-        title = QLabel('Power')
         label_one = QLabel('Base:')
         label_two = QLabel('Power: ')
         input_one = QLineEdit()
@@ -334,7 +345,6 @@ class MainGUI(QMainWindow):
         grid.setSpacing(10)
 
         # add widgets to grid
-        grid.addWidget(title, 0, 0)
         grid.addWidget(label_one, 1, 0)
         grid.addWidget(input_one, 1, 1)
         grid.addWidget(label_two, 2, 0)
@@ -345,9 +355,9 @@ class MainGUI(QMainWindow):
 
         # create back button
         back_btn = QPushButton('Back', self)
-        back_btn.clicked.connect(lambda: self.backButton(self.math_menu_stack_position))  # update menu to return to
+        back_btn.clicked.connect(lambda: self.ButtonHandler(self.math_menu_stack_position))  # update menu to return to
         back_btn.setProperty("menuButton", True)
-        grid.addWidget(fav_btn,5, 0, 1, 1)
+        grid.addWidget(fav_btn, 5, 0, 1, 1)
         grid.addWidget(back_btn, 5, 1, 1, 1)
 
         # create stack object
@@ -375,7 +385,6 @@ class MainGUI(QMainWindow):
         self.integral_widget = QWidget()
 
         # create inputs, buttons, and outputs
-        title = QLabel('Definite Integral Calculator')
         func_label = QLabel('Function: ')
         upper_label = QLabel('Upper: ')
         lower_label = QLabel('Lower: ')
@@ -392,16 +401,15 @@ class MainGUI(QMainWindow):
         grid = QGridLayout()
 
         # add widgets to grid
-        grid.addWidget(title, 0,0,1,2)
-        grid.addWidget(func_label, 1,0)
-        grid.addWidget(func_input, 1,1)
-        grid.addWidget(upper_label, 2,0)
-        grid.addWidget(upper_input, 2,1)
-        grid.addWidget(lower_label, 3,0)
-        grid.addWidget(lower_input, 3,1)
-        grid.addWidget(calc_btn, 4,1)
-        grid.addWidget(result_label, 5,0)
-        grid.addWidget(self.integral_output, 5,1)
+        grid.addWidget(func_label, 1, 0)
+        grid.addWidget(func_input, 1, 1)
+        grid.addWidget(upper_label, 2, 0)
+        grid.addWidget(upper_input, 2, 1)
+        grid.addWidget(lower_label, 3, 0)
+        grid.addWidget(lower_input, 3, 1)
+        grid.addWidget(calc_btn, 4, 1)
+        grid.addWidget(result_label, 5, 0)
+        grid.addWidget(self.integral_output, 5, 1)
         fav_btn = QPushButton('Add To Favorites')
         fav_btn.setProperty("menuButton", True)
 
@@ -414,10 +422,10 @@ class MainGUI(QMainWindow):
 
         # create back button
         back_btn = QPushButton('Back', self)
-        back_btn.clicked.connect(lambda: self.backButton(self.math_menu_stack_position))  # update menu to return to
+        back_btn.clicked.connect(lambda: self.ButtonHandler(self.math_menu_stack_position))  # update menu to return to
         back_btn.setProperty("menuButton", True)
-        grid.addWidget(fav_btn, 6, 0,1,1)
-        grid.addWidget(back_btn, 6,1,1,1)
+        grid.addWidget(fav_btn, 6, 0, 1, 1)
+        grid.addWidget(back_btn, 6, 1, 1, 1)
 
         # create stack object
         self.integral_widget.setLayout(grid)
@@ -445,15 +453,14 @@ class MainGUI(QMainWindow):
         self.phys_menu_stack_position = 2
         # buttons for physics subwidgets
         back_btn = QPushButton('Back', self)
-        back_btn.clicked.connect(lambda: self.backButton(self.main_menu_stack_position))
+        back_btn.clicked.connect(lambda: self.ButtonHandler(self.main_menu_stack_position))
         back_btn.setProperty("menuButton", True)
-        label = QLabel('Physics')
         self.widget_btn_resband = QPushButton('Resistor \nBands')
         self.widget_btn_resband.setProperty("menuButton", False)
-        self.widget_btn_resband.clicked.connect(self.PhysMenuButtonClickHandler)
+        self.widget_btn_resband.clicked.connect(lambda: self.ButtonHandler(self.resband_widget_stack_position))
         self.widget_btn_dense = QPushButton('Material \nDensities')
         self.widget_btn_dense.setProperty("menuButton", False)
-        self.widget_btn_dense.clicked.connect(self.PhysMenuButtonClickHandler)
+        self.widget_btn_dense.clicked.connect(lambda: self.ButtonHandler(self.dense_widget_stack_position))
         self.widget_btn_fall = QPushButton('Falling')
         self.widget_btn_fall.setProperty("menuButton", False)
         # TODO: Implement falling widget
@@ -462,7 +469,6 @@ class MainGUI(QMainWindow):
 
         # create layout
         self.phys_menu_layout = QVBoxLayout()
-        self.phys_menu_layout.addWidget(label)
         self.phys_widget_layout = QGridLayout()
         self.phys_widget_layout.addWidget(self.widget_btn_resband, 0, 0, 1, 1)
         self.phys_widget_layout.addWidget(self.widget_btn_dense, 0, 1, 1, 1)
@@ -477,13 +483,6 @@ class MainGUI(QMainWindow):
         self.phys_menu.setLayout(self.phys_menu_layout)
         self.show()
 
-    def PhysMenuButtonClickHandler(self):
-        """Handles physics submenu button clicks"""
-        if self.sender() == self.widget_btn_resband:
-            self.stacked_layout.setCurrentIndex(self.resband_widget_stack_position)
-        if self.sender() == self.widget_btn_dense:
-            self.stacked_layout.setCurrentIndex(self.dense_widget_stack_position)
-
     def create_resband_widget(self):
         """Widget for Calculating resistor values"""
         self.resband_widget_stack_position = 8  # set stack position, reference attached doc
@@ -492,18 +491,21 @@ class MainGUI(QMainWindow):
         self.resband_widget = QWidget()
 
         # create inputs, buttons, and outputs
-        title = QLabel('Resistor Value Calculator')
         label_one = QLabel('1st Band: ')
         label_two = QLabel('2nd Band: ')
         label_mult = QLabel('Multiplier: ')
         label_tolerance = QLabel('Tolerance: ')
         label_value = QLabel('Value: ')
         band_one = QComboBox()
-        band_one.addItems(['Black 0', 'Brown 1', 'Red 2', 'Orange 3', 'Yellow 4', 'Green 5', 'Blue 6', 'Violet 7', 'Gray 8', 'White 9'])
+        band_one.addItems(
+            ['Black 0', 'Brown 1', 'Red 2', 'Orange 3', 'Yellow 4', 'Green 5', 'Blue 6', 'Violet 7', 'Gray 8',
+             'White 9'])
         band_two = QComboBox()
-        band_two.addItems(['Black 0', 'Brown 1', 'Red 2', 'Orange 3', 'Yellow 4', 'Green 5', 'Blue 6', 'Violet 7', 'Gray 8', 'White 9'])
+        band_two.addItems(
+            ['Black 0', 'Brown 1', 'Red 2', 'Orange 3', 'Yellow 4', 'Green 5', 'Blue 6', 'Violet 7', 'Gray 8',
+             'White 9'])
         band_mult = QComboBox()
-        band_mult.addItems(['Black x1 Ω','Brown  x10 Ω', 'Red  x100 Ω', 'Orange x1 kΩ', 'Yellow x10 kΩ',
+        band_mult.addItems(['Black x1 Ω', 'Brown  x10 Ω', 'Red  x100 Ω', 'Orange x1 kΩ', 'Yellow x10 kΩ',
                             'Green x100 kΩ', 'Blue x1 MΩ', 'Violet x10 MΩ', 'Gray x100 MΩ', 'White x1 GΩ',
                             'Gold x.1 Ω', 'Silver x.01 Ω'])
         band_tol = QComboBox()
@@ -518,7 +520,6 @@ class MainGUI(QMainWindow):
         grid = QGridLayout()
 
         # add widgets to grid
-        grid.addWidget(title, 0, 0)
         grid.addWidget(label_one, 1, 0)
         grid.addWidget(band_one, 1, 1)
         grid.addWidget(label_two, 2, 0)
@@ -533,7 +534,7 @@ class MainGUI(QMainWindow):
 
         # create back and favorite button
         back_btn = QPushButton('Back', self)
-        back_btn.clicked.connect(lambda: self.backButton(self.phys_menu_stack_position))  # update menu to return to
+        back_btn.clicked.connect(lambda: self.ButtonHandler(self.phys_menu_stack_position))  # update menu to return to
         back_btn.setProperty("menuButton", True)
         fav_btn = QPushButton('Add To Favorites')
         fav_btn.setProperty("menuButton", True)
@@ -567,7 +568,6 @@ class MainGUI(QMainWindow):
         self.dense_widget = QWidget()
 
         # create inputs, buttons, and outputs
-        label_title = QLabel('Material Density Reference: ')
         label_input = QLabel('Material: ')
         label_metr = QLabel('Grams / cm³')
         label_imp = QLabel('Pounds / ft³')
@@ -583,7 +583,6 @@ class MainGUI(QMainWindow):
                 self.metr[row[0]] = row[1]
                 self.imp[row[0]] = row[2]
 
-
         mat.addItems(mats)
 
         self.dense_out_metr = QLineEdit()
@@ -597,18 +596,17 @@ class MainGUI(QMainWindow):
         grid.setSpacing(10)
 
         # add widgets to grid
-        grid.addWidget(label_title, 0,0,2,1)
-        grid.addWidget(label_input, 1,0)
+        grid.addWidget(label_input, 1, 0)
         grid.addWidget(mat, 1, 1)
         grid.addWidget(calc_btn, 2, 1)
-        grid.addWidget(label_metr, 3,0)
+        grid.addWidget(label_metr, 3, 0)
         grid.addWidget(self.dense_out_metr, 3, 1)
         grid.addWidget(label_imp, 4, 0)
         grid.addWidget(self.dense_out_imp, 4, 1)
 
         # create back button
         back_btn = QPushButton('Back', self)
-        back_btn.clicked.connect(lambda: self.backButton(self.phys_menu_stack_position))  # update menu to return to
+        back_btn.clicked.connect(lambda: self.ButtonHandler(self.phys_menu_stack_position))  # update menu to return to
         back_btn.setProperty("menuButton", True)
         fav_btn = QPushButton('Add To Favorites')
         fav_btn.setProperty("menuButton", True)
@@ -646,32 +644,23 @@ class MainGUI(QMainWindow):
 
         # buttons for chem subwidgets
         back_btn = QPushButton('Back', self)
-        back_btn.clicked.connect(lambda: self.backButton(self.main_menu_stack_position))
+        back_btn.clicked.connect(lambda: self.ButtonHandler(self.main_menu_stack_position))
         back_btn.setProperty("menuButton", True)
-        label = QLabel('Chemistry')
         self.widget_btn_molar = QPushButton('Molar Mass')
         self.widget_btn_molar.setProperty("menuButton", False)
-        self.widget_btn_molar.clicked.connect(self.ChemMenuButtonClickHandler)
-
+        self.widget_btn_molar.clicked.connect(lambda: self.ButtonHandler(self.molar_mass_widget_stack_position))
 
         # create layout
         self.chem_menu_layout = QVBoxLayout()
         self.chem_widgets_layout = QGridLayout()
         self.chem_widgets_layout.addWidget(self.widget_btn_molar, 0, 0)
-        self.chem_menu_layout.addWidget(label)
         self.chem_menu_layout.addLayout(self.chem_widgets_layout)
         self.chem_menu_layout.addWidget(back_btn)
-
 
         # create stack object
         self.chem_menu = QWidget()
         self.chem_menu.setLayout(self.chem_menu_layout)
         self.show()
-
-    def ChemMenuButtonClickHandler(self):
-        """Handles chemistry submenu button clicks"""
-        if  self.sender() == self.widget_btn_molar:
-            self.stacked_layout.setCurrentIndex(self.molar_mass_widget_stack_position)
 
     def create_molar_mass_widget(self):
         """Widget for ...."""
@@ -681,7 +670,6 @@ class MainGUI(QMainWindow):
         self.molar_mass_widget = QWidget()
 
         # create inputs, buttons, and outputs
-        title = QLabel('Molar Mass Calculator')
         label_input = QLabel('Formula')
         form_input = QLineEdit()
         calc_btn = QPushButton('Calculate')
@@ -695,7 +683,6 @@ class MainGUI(QMainWindow):
         grid.setSpacing(10)
 
         # add widgets to grid
-        grid.addWidget(title, 0, 0)
         grid.addWidget(label_input, 1, 0)
         grid.addWidget(form_input, 1, 1)
         grid.addWidget(calc_btn, 2, 1)
@@ -704,7 +691,7 @@ class MainGUI(QMainWindow):
 
         # create back button
         back_btn = QPushButton('Back', self)
-        back_btn.clicked.connect(lambda: self.backButton(self.chem_menu_stack_position))  # update menu to return to
+        back_btn.clicked.connect(lambda: self.ButtonHandler(self.chem_menu_stack_position))  # update menu to return to
         back_btn.setProperty("menuButton", True)
         fav_btn = QPushButton('Add To Favorites')
         fav_btn.setProperty("menuButton", True)
@@ -738,21 +725,18 @@ class MainGUI(QMainWindow):
         self.fav_menu_stack_position = 4
         # buttons for physics subwidgets
         back_btn = QPushButton('Back', self)
-        back_btn.clicked.connect(lambda: self.backButton(self.main_menu_stack_position))
+        back_btn.clicked.connect(lambda: self.ButtonHandler(self.main_menu_stack_position))
         back_btn.setProperty("menuButton", True)
-        label = QLabel('Favorites')
-
 
         # create layouts
         self.fav_menu_layout = QVBoxLayout()
-        self.fav_menu_layout.addWidget(label)
         self.fav_btns_layout = QVBoxLayout()
 
         self.fav_menu_layout.addLayout(self.fav_btns_layout)
 
         # create dynamic buttons
         # TODO: GET THE FAVORITES MENU TO LOAD USER DATA FROM STARTUP
-        
+
         self.fav_menu_layout.addWidget(back_btn)
 
         # create stack object
@@ -764,15 +748,12 @@ class MainGUI(QMainWindow):
         OTHER METHODS
     """
 
-    def backButton(self, index):
-        """Goes back in the layout stack"""
-        self.stacked_layout.setCurrentIndex(index)
-
     def favButton(self, button):
         self.fav_btns_layout.addWidget(button)
 
     def ButtonHandler(self, sp):
         self.stacked_layout.setCurrentIndex(sp)
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
