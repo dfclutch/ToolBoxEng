@@ -98,6 +98,11 @@ class MainGUI(QMainWindow):
                 min-height: 60px;
             }
             
+            QMenuBar::item {
+                padding: 15px;
+                margin: 0px
+            }            
+            
             QMenuBar::item::selected {
                 background-color: #2f5faa;
             }
@@ -110,6 +115,12 @@ class MainGUI(QMainWindow):
                 font-family: "Helvetica";
                 font-size: 28px;    
                 color: black;        
+            }
+            
+            QLabel[description = "true"] {   
+                font-family: "Helvetica";
+                font-size: 28px;    
+                color: #aaaaaa;        
             }
 
             QWidget {
@@ -146,6 +157,8 @@ class MainGUI(QMainWindow):
         self.stacked_layout.addWidget(self.dense_widget)
         self.create_molar_mass_widget()
         self.stacked_layout.addWidget(self.molar_mass_widget)
+        self.create_volt_drop_widget()
+        self.stacked_layout.addWidget(self.volt_drop_widget)
 
         self.stacked_layout.setCurrentIndex(0)
 
@@ -190,6 +203,9 @@ class MainGUI(QMainWindow):
         dense_action = QAction('Material Density', self)
         dense_action.triggered.connect(lambda: self.ButtonHandler(self.dense_widget_stack_position))
         phys_menu.addAction(dense_action)
+        volt_action = QAction('Voltage Drop', self)
+        volt_action.triggered.connect(lambda: self.ButtonHandler(self.volt_drop_widget_stack_position))
+        phys_menu.addAction(volt_action)
 
         # create chem menu #
         chem_menu_action = QAction('Menu', self)
@@ -203,6 +219,7 @@ class MainGUI(QMainWindow):
         fav_menu_action = QAction('Menu', self)
         fav_menu_action.triggered.connect(lambda: self.ButtonHandler(self.fav_menu_stack_position))
         fav_menu.addAction(fav_menu_action)
+        fav_menu.triggered.connect(lambda: self.ButtonHandler(self.fav_menu_stack_position))
 
         self.show()
     """
@@ -228,10 +245,6 @@ class MainGUI(QMainWindow):
         self.widget_btn_RRE.setProperty("menuButton", False)
         self.widget_btn_determinant = QPushButton('Determinant', self)
         self.widget_btn_determinant.setProperty("menuButton", False)
-        back_btn = QPushButton('Back', self)
-        back_btn.clicked.connect(lambda: self.ButtonHandler(self.main_menu_stack_position))
-        back_btn.setProperty("menuButton", True)
-
         # create layout
         self.math_menu_layout = QVBoxLayout()
         self.math_menu_grid_layout = QGridLayout()
@@ -242,7 +255,6 @@ class MainGUI(QMainWindow):
         self.math_menu_grid_layout.addWidget(self.widget_btn_RRE, 2, 0)
         self.math_menu_grid_layout.addWidget(self.widget_btn_determinant, 2, 1)
         self.math_menu_layout.addLayout(self.math_menu_grid_layout)
-        self.math_menu_layout.addWidget(back_btn)
 
         # create stack object
 
@@ -452,18 +464,15 @@ class MainGUI(QMainWindow):
         """phys Submenu"""
         self.phys_menu_stack_position = 2
         # buttons for physics subwidgets
-        back_btn = QPushButton('Back', self)
-        back_btn.clicked.connect(lambda: self.ButtonHandler(self.main_menu_stack_position))
-        back_btn.setProperty("menuButton", True)
-        self.widget_btn_resband = QPushButton('Resistor \nBands')
+        self.widget_btn_resband = QPushButton('Resistor\nBands')
         self.widget_btn_resband.setProperty("menuButton", False)
         self.widget_btn_resband.clicked.connect(lambda: self.ButtonHandler(self.resband_widget_stack_position))
-        self.widget_btn_dense = QPushButton('Material \nDensities')
+        self.widget_btn_dense = QPushButton('Material\nDensities')
         self.widget_btn_dense.setProperty("menuButton", False)
         self.widget_btn_dense.clicked.connect(lambda: self.ButtonHandler(self.dense_widget_stack_position))
-        self.widget_btn_fall = QPushButton('Falling')
-        self.widget_btn_fall.setProperty("menuButton", False)
-        # TODO: Implement falling widget
+        self.widget_btn_volt = QPushButton('Voltage\nDrop')
+        self.widget_btn_volt.setProperty("menuButton", False)
+        self.widget_btn_volt.clicked.connect(lambda: self.ButtonHandler(self.volt_drop_widget_stack_position))
         self.widget_btn_NAME = QPushButton('Placeholder')
         self.widget_btn_NAME.setProperty("menuButton", False)
 
@@ -472,11 +481,10 @@ class MainGUI(QMainWindow):
         self.phys_widget_layout = QGridLayout()
         self.phys_widget_layout.addWidget(self.widget_btn_resband, 0, 0, 1, 1)
         self.phys_widget_layout.addWidget(self.widget_btn_dense, 0, 1, 1, 1)
-        self.phys_widget_layout.addWidget(self.widget_btn_fall, 0, 2, 1, 1)
+        self.phys_widget_layout.addWidget(self.widget_btn_volt, 0, 2, 1, 1)
         self.phys_widget_layout.addWidget(self.widget_btn_NAME, 0, 3, 1, 1)
 
         self.phys_menu_layout.addLayout(self.phys_widget_layout)
-        self.phys_menu_layout.addWidget(back_btn)
 
         # create stack object
         self.phys_menu = QWidget()
@@ -634,6 +642,73 @@ class MainGUI(QMainWindow):
         except:
             self.dense_out_metr.setText("Something's Not Right!?")
 
+    def create_volt_drop_widget(self):
+        """Widget for calculating voltage drop across a resistor"""
+        self.volt_drop_widget_stack_position = 11  # set stack position, reference attached doc
+
+        # build stack widget
+        self.volt_drop_widget = QWidget()
+
+        # create inputs, buttons, and outputs
+        label_voltage = QLabel('Power source: ')
+        label_resist = QLabel('Resistor voltage: \ne.g. [22, 18, 44]')
+        label_result = QLabel('Drops: ')
+        input_voltage = QLineEdit()
+        input_resist = QLineEdit()
+        self.output_volt_drop = QLineEdit()
+        btn_calc = QPushButton('Calculate')
+        btn_calc.setProperty("menuButton", True)
+        btn_calc.clicked.connect(lambda: self.volt_drop_calculate(input_voltage.text(), input_resist.text()))
+
+        # setup gridlayout
+        grid = QGridLayout()
+
+        # add widgets to grid
+        grid.addWidget(label_voltage, 0, 0)
+        grid.addWidget(input_voltage, 0, 1)
+        grid.addWidget(label_resist, 1, 0)
+        grid.addWidget(input_resist, 1, 1,)
+        grid.addWidget(btn_calc, 2, 1)
+        grid.addWidget(label_result, 3, 0)
+        grid.addWidget(self.output_volt_drop)
+
+        # create back button
+        back_btn = QPushButton('Back', self)
+        back_btn.clicked.connect(lambda: self.ButtonHandler(self.phys_menu_stack_position))  # update menu to return to
+        back_btn.setProperty("menuButton", True)
+        fav_btn = QPushButton('Add To Favorites')
+        fav_btn.setProperty("menuButton", True)
+
+        # build favorites button for widget
+        fav_menu_btn = QPushButton('Voltage Drop')
+        fav_menu_btn.setProperty("menuButton", True)
+        fav_menu_btn.clicked.connect(lambda: self.ButtonHandler(self.volt_drop_widget_stack_position))
+
+        fav_btn.clicked.connect(lambda: self.favButton(fav_menu_btn))
+        grid.addWidget(fav_btn, 4, 0)
+        grid.addWidget(back_btn, 4, 1)
+
+        # create stack object
+        self.volt_drop_widget.setLayout(grid)
+        self.show()
+
+    def volt_drop_calculate(self, volt, resist):
+        try:
+            result = PhysicsToolWidgets.VoltageDrop.calc(volt, resist)
+            output = ""
+            for x in result:
+                output = output + " " + x + " " + result.get(x) + ","
+
+            self.output_volt_drop.setText(output)
+        except:
+            self.output_volt_drop.setText("mistakes were made")
+
+    def create_amp_change_widget(self):
+        pass
+
+    def amp_change_calculate(self):
+        pass
+
     """
         CHEMISTRY MENU, HELPER CLASSES, AND WIDGETS
     """
@@ -643,9 +718,6 @@ class MainGUI(QMainWindow):
         self.chem_menu_stack_position = 3
 
         # buttons for chem subwidgets
-        back_btn = QPushButton('Back', self)
-        back_btn.clicked.connect(lambda: self.ButtonHandler(self.main_menu_stack_position))
-        back_btn.setProperty("menuButton", True)
         self.widget_btn_molar = QPushButton('Molar Mass')
         self.widget_btn_molar.setProperty("menuButton", False)
         self.widget_btn_molar.clicked.connect(lambda: self.ButtonHandler(self.molar_mass_widget_stack_position))
@@ -655,7 +727,6 @@ class MainGUI(QMainWindow):
         self.chem_widgets_layout = QGridLayout()
         self.chem_widgets_layout.addWidget(self.widget_btn_molar, 0, 0)
         self.chem_menu_layout.addLayout(self.chem_widgets_layout)
-        self.chem_menu_layout.addWidget(back_btn)
 
         # create stack object
         self.chem_menu = QWidget()
@@ -663,7 +734,7 @@ class MainGUI(QMainWindow):
         self.show()
 
     def create_molar_mass_widget(self):
-        """Widget for ...."""
+        """Widget for calculating molar mass of a compound"""
         self.molar_mass_widget_stack_position = 10  # set stack position, reference attached doc
 
         # build stack widget
@@ -724,9 +795,6 @@ class MainGUI(QMainWindow):
         """fav Submenu"""
         self.fav_menu_stack_position = 4
         # buttons for physics subwidgets
-        back_btn = QPushButton('Back', self)
-        back_btn.clicked.connect(lambda: self.ButtonHandler(self.main_menu_stack_position))
-        back_btn.setProperty("menuButton", True)
 
         # create layouts
         self.fav_menu_layout = QVBoxLayout()
@@ -734,10 +802,6 @@ class MainGUI(QMainWindow):
 
         self.fav_menu_layout.addLayout(self.fav_btns_layout)
 
-        # create dynamic buttons
-        # TODO: GET THE FAVORITES MENU TO LOAD USER DATA FROM STARTUP
-
-        self.fav_menu_layout.addWidget(back_btn)
 
         # create stack object
         self.fav_menu = QWidget()

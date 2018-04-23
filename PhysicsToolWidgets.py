@@ -63,22 +63,39 @@ class VoltageDrop(ToolWidget):
         Calculates the voltage drop over resistors in a simple series circuit.
         Args:
             args[0]: Voltage of power source
-            args[1]: list with voltage of each resistor e.g [22, 18, 44]
+            args[1]: list with resistance of each resistor e.g [22, 18, 44]
         """
 
         voltage = float(args[0])
-        resistors = list(args[1])
+        res_list = args[1]
+        resistors = []
 
-        totalResistance = sum(resistors)
+        for i in res_list:
+            if i.isnumeric():
+                if resistors[-1].isnumeric():
+                    num = resistors.pop(-1)
+                    resistors.append(num + i)
+                else:
+                    resistors.append(i)
+            else:
+                resistors.append(i)
+        temp = []
+        for j in resistors:
+            if j.isnumeric():
+                temp.append(int(j))
 
-        current = voltage / totalResistance
+        resistors.clear()
+        resistors = temp
+        total_resistance = sum(resistors)
+
+        current = voltage / total_resistance
 
         output = {}
 
-        for i in range(0, len(resistors)):
-            drop = current * resistors[i]
-            string = str(resistors[i]) + "Ω resistor"
-            output[string] = str(drop) + " volts"
+        for j in range(0, len(resistors)):
+            drop = current * resistors[j]
+            string = str(resistors[j]) + "Ω resistor:"
+            output[string] = " %.2f volts" % drop
 
         return output
 
