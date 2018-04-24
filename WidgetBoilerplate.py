@@ -15,7 +15,7 @@ def create_NAME_widget(self):
 
     # create back button
     back_btn = QPushButton('Back', self)
-    back_btn.clicked.connect(lambda: self.backButton(self.CHANGE_MENU_stack_position))  # update menu to return to
+    back_btn.clicked.connect(lambda: self.ButtonHandler(self.CHANGE_MENU_stack_position))  # update menu to return to
     back_btn.setProperty("menuButton", True)
     fav_btn = QPushButton('Add To Favorites')
     fav_btn.setProperty("menuButton", True)

@@ -159,6 +159,8 @@ class MainGUI(QMainWindow):
         self.stacked_layout.addWidget(self.molar_mass_widget)
         self.create_volt_drop_widget()
         self.stacked_layout.addWidget(self.volt_drop_widget)
+        self.create_amp_change_widget()
+        self.stacked_layout.addWidget(self.amp_change_widget)
 
         self.stacked_layout.setCurrentIndex(0)
 
@@ -206,6 +208,9 @@ class MainGUI(QMainWindow):
         volt_action = QAction('Voltage Drop', self)
         volt_action.triggered.connect(lambda: self.ButtonHandler(self.volt_drop_widget_stack_position))
         phys_menu.addAction(volt_action)
+        amp_change = QAction('Amp Change', self)
+        amp_change.triggered.connect(lambda: self.ButtonHandler(self.amp_change_widget_stack_position))
+        phys_menu.addAction(amp_change)
 
         # create chem menu #
         chem_menu_action = QAction('Menu', self)
@@ -473,8 +478,10 @@ class MainGUI(QMainWindow):
         self.widget_btn_volt = QPushButton('Voltage\nDrop')
         self.widget_btn_volt.setProperty("menuButton", False)
         self.widget_btn_volt.clicked.connect(lambda: self.ButtonHandler(self.volt_drop_widget_stack_position))
-        self.widget_btn_NAME = QPushButton('Placeholder')
-        self.widget_btn_NAME.setProperty("menuButton", False)
+        self.widget_btn_amp_change = QPushButton('Amp Change')
+        self.widget_btn_amp_change.setProperty("menuButton", False)
+        self.widget_btn_amp_change.clicked.connect(lambda: self.ButtonHandler(self.amp_change_widget_stack_position))
+
 
         # create layout
         self.phys_menu_layout = QVBoxLayout()
@@ -482,7 +489,7 @@ class MainGUI(QMainWindow):
         self.phys_widget_layout.addWidget(self.widget_btn_resband, 0, 0, 1, 1)
         self.phys_widget_layout.addWidget(self.widget_btn_dense, 0, 1, 1, 1)
         self.phys_widget_layout.addWidget(self.widget_btn_volt, 0, 2, 1, 1)
-        self.phys_widget_layout.addWidget(self.widget_btn_NAME, 0, 3, 1, 1)
+        self.phys_widget_layout.addWidget(self.widget_btn_amp_change, 0, 3, 1, 1)
 
         self.phys_menu_layout.addLayout(self.phys_widget_layout)
 
@@ -704,10 +711,65 @@ class MainGUI(QMainWindow):
             self.output_volt_drop.setText("mistakes were made")
 
     def create_amp_change_widget(self):
-        pass
+        """Widget for calculating voltage drop across a resistor"""
+        self.amp_change_widget_stack_position = 12  # set stack position, reference attached doc
 
-    def amp_change_calculate(self):
-        pass
+        # build stack widget
+        self.amp_change_widget = QWidget()
+
+        # create inputs, buttons, and outputs
+        label_voltage = QLabel('Power source: ')
+        label_resist = QLabel('Resistor voltage: \ne.g. [22, 18, 44]')
+        label_result = QLabel('Drops: ')
+        input_voltage = QLineEdit()
+        input_resist = QLineEdit()
+        self.output_amp_change = QLineEdit()
+        btn_calc = QPushButton('Calculate')
+        btn_calc.setProperty("menuButton", True)
+        btn_calc.clicked.connect(lambda: self.amp_change_calculate(input_voltage.text(), input_resist.text()))
+
+        # setup gridlayout
+        grid = QGridLayout()
+
+        # add widgets to grid
+        grid.addWidget(label_voltage, 0, 0)
+        grid.addWidget(input_voltage, 0, 1)
+        grid.addWidget(label_resist, 1, 0)
+        grid.addWidget(input_resist, 1, 1,)
+        grid.addWidget(btn_calc, 2, 1)
+        grid.addWidget(label_result, 3, 0)
+        grid.addWidget(self.output_amp_change)
+
+        # create back button
+        back_btn = QPushButton('Back', self)
+        back_btn.clicked.connect(lambda: self.ButtonHandler(self.phys_menu_stack_position))  # update menu to return to
+        back_btn.setProperty("menuButton", True)
+        fav_btn = QPushButton('Add To Favorites')
+        fav_btn.setProperty("menuButton", True)
+
+        # build favorites button for widget
+        fav_menu_btn = QPushButton('Amp Change')
+        fav_menu_btn.setProperty("menuButton", True)
+        fav_menu_btn.clicked.connect(lambda: self.ButtonHandler(self.amp_change_widget_stack_position))
+
+        fav_btn.clicked.connect(lambda: self.favButton(fav_menu_btn))
+        grid.addWidget(fav_btn, 4, 0)
+        grid.addWidget(back_btn, 4, 1)
+
+        # create stack object
+        self.amp_change_widget.setLayout(grid)
+        self.show()
+
+    def amp_change_calculate(self, volt, resist):
+        try:
+            result = PhysicsToolWidgets.AmpChange.calc(volt, resist)
+            output = ""
+            for x in result:
+                output = output + " " + x + " " + result.get(x) + ","
+
+            self.output_amp_change.setText(output)
+        except:
+            self.output_amp_change.setText("mistakes were made")
 
     """
         CHEMISTRY MENU, HELPER CLASSES, AND WIDGETS

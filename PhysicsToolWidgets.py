@@ -112,7 +112,26 @@ class AmpChange(ToolWidget):
         """
 
         voltage = float(args[0])
-        resistors = list(args[1])
+        res_list = args[1]
+
+        resistors = []
+
+        for i in res_list:
+            if i.isnumeric():
+                if resistors[-1].isnumeric():
+                    num = resistors.pop(-1)
+                    resistors.append(num + i)
+                else:
+                    resistors.append(i)
+            else:
+                resistors.append(i)
+        temp = []
+        for j in resistors:
+            if j.isnumeric():
+                temp.append(int(j))
+
+        resistors.clear()
+        resistors = temp
 
         output = {}
 
