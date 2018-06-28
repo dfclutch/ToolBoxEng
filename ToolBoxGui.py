@@ -9,7 +9,6 @@ import ChemistryToolWidgets
 import time
 import csv
 
-
 class MainGUI(QMainWindow):
 
     def __init__(self):
